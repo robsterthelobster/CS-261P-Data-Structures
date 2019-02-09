@@ -8,9 +8,9 @@ abstract class AbstractHashTable implements HashTable{
 
     final int INITIAL_CAPACITY;
 
-    final int A = 519;
-    final int B = 336699;
-    final int P = 1993;
+    private final int A = 519;
+    private final int B = 336699;
+    private final int P = 1993;
 
     NoSuchElementException noSuchElementException
             = new NoSuchElementException("No such element in hash table");
@@ -39,5 +39,14 @@ abstract class AbstractHashTable implements HashTable{
     @Override
     public int getSize(){
         return size;
+    }
+
+    /*
+        debugging purposes
+     */
+    public abstract void printHashTable();
+
+    public double getLoadFactor(){
+        return (double)size/INITIAL_CAPACITY;
     }
 }

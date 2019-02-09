@@ -42,10 +42,10 @@ public abstract class HashTableTest {
                 hashTable = new ChainedHashTable(SIZE);
                 break;
             case CUCKOO:
-                hashTable = new CuckooHashTable();
+                hashTable = new CuckooHashTable(SIZE);
                 break;
             case QUADRATIC:
-                hashTable = new QuadraticHashTable();
+                hashTable = new QuadraticHashTable(SIZE);
                 break;
             default:
                 System.err.println("Not a valid type");

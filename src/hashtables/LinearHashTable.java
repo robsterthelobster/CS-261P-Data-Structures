@@ -39,16 +39,20 @@ public class LinearHashTable extends AbstractHashTable{
     @Override
     public void delete(int key) {
         int index = getIndexOfKey(key);
+        boolean[] alreadyVisited = new boolean[INITIAL_CAPACITY];
+        alreadyVisited[index] = true;
+
         if(hashTable[index] == null) return;
 
-        int _index = (index + 1) % INITIAL_CAPACITY;
-        while(hashTable[_index] != null){
+        int _index = nextIndex(index, 1);
+        for(int i = 2; hashTable[_index] != null && !alreadyVisited[_index]; ++i){
+            alreadyVisited[_index] = true;
             int hash = hash(hashTable[_index].key);
-            if(hash < index || hash > _index){
+            if(hash <= index || hash > _index){
                 hashTable[index] = hashTable[_index];
                 index = _index;
             }
-            _index = (_index + 1) % INITIAL_CAPACITY;
+            _index = nextIndex(_index, i);
         }
         hashTable[index] = null;
         --size;
@@ -62,16 +66,17 @@ public class LinearHashTable extends AbstractHashTable{
 
     private int getIndexOfKey(int key){
         int index = hash(key);
-        while(hashTable[index] != null){
+        for(int i = 0; hashTable[index] != null; ++i){
             if(hashTable[index].key == key){
                 return index;
             }
-            index = (index + 1) % INITIAL_CAPACITY;
+            index = nextIndex(index, i);
         }
         return index;
     }
 
-    public void printArray(){
+    // debugging purposes
+    public void printHashTable(){
         for(int i = 0; i < INITIAL_CAPACITY; ++i){
             System.out.print(i + ": ");
             if(hashTable[i] == null){
@@ -80,5 +85,9 @@ public class LinearHashTable extends AbstractHashTable{
                 System.out.println(hashTable[i].key + ":" + hash(hashTable[i].key));
             }
         }
+    }
+
+    protected int nextIndex(int index, int count){
+        return (index + 1) % INITIAL_CAPACITY;
     }
 }

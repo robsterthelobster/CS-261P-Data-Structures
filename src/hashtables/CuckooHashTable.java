@@ -3,6 +3,10 @@ package hashtables;
 import java.util.NoSuchElementException;
 
 public class CuckooHashTable extends AbstractHashTable{
+
+    public CuckooHashTable(int size){
+        super(size);
+    }
     @Override
     public int search(int key) throws NoSuchElementException {
         return 0;
@@ -20,6 +24,11 @@ public class CuckooHashTable extends AbstractHashTable{
 
     @Override
     public void clear() {
+
+    }
+
+    @Override
+    public void printHashTable() {
 
     }
 }

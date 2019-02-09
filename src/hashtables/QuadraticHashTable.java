@@ -1,25 +1,13 @@
 package hashtables;
 
-import java.util.NoSuchElementException;
+public class QuadraticHashTable extends LinearHashTable{
 
-public class QuadraticHashTable extends AbstractHashTable{
-    @Override
-    public int search(int key) throws NoSuchElementException {
-        return 0;
+    public QuadraticHashTable(int size) {
+        super(size);
     }
 
     @Override
-    public void set(int key, int value) {
-
-    }
-
-    @Override
-    public void delete(int key) {
-
-    }
-
-    @Override
-    public void clear() {
-
+    protected int nextIndex(int index, int count){
+        return (index + count * count) % INITIAL_CAPACITY;
     }
 }

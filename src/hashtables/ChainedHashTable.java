@@ -11,6 +11,11 @@ public class ChainedHashTable extends AbstractHashTable{
         super();
     }
 
+    @Override
+    public void printHashTable() {
+
+    }
+
     public ChainedHashTable(int size){
         super(size);
     }
