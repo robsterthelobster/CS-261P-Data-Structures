@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class CuckooHashTable extends AbstractArrayHashTable{
 
-    Random cuckooRandom;
+    private Random cuckooRandom;
     private double[] CUCKOO_CONSTANTS;
     private final int CUCKOO_SEED = 333;
 

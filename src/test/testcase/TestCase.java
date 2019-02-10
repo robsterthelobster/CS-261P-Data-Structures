@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-public class TestCase {
+class TestCase {
 
     final int SEED_LEN = 10;
     long SEEDS[];
@@ -12,7 +12,7 @@ public class TestCase {
     String filename;
     String averageFilename;
 
-    public TestCase(String filename){
+    TestCase(String filename){
         this.filename = filename;
         averageFilename = "Average" + filename;
         createNewFile(filename);

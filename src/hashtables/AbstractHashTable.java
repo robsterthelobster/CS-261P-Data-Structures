@@ -10,7 +10,7 @@ public abstract class AbstractHashTable implements HashTable{
     private final int CONSTANTS_SIZE = 50;
     private final int SEED = 999;
 
-    protected int prime;
+    private int prime;
     private final int K = 5;
     private final float UPPER_THRESHOLD = 0.75f;
     final float LOWER_THRESHOLD = 0.375f;
@@ -35,7 +35,7 @@ public abstract class AbstractHashTable implements HashTable{
         clear();
     }
 
-    protected double[] getConstants(Random random){
+    double[] getConstants(Random random){
 
         double[] arr = new double[CONSTANTS_SIZE];
 
@@ -65,7 +65,7 @@ public abstract class AbstractHashTable implements HashTable{
         Find next largest prime factor
         Taken from stack-overflow but modified for efficiency
      */
-    protected int getPrime(int num){
+    private int getPrime(int num){
         num = (num % 2 == 0) ? num + 1 : num + 2;
 
         for(boolean isPrime = false; !isPrime; num += 2){

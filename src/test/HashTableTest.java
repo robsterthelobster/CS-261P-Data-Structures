@@ -7,14 +7,14 @@ import java.util.Random;
 
 public abstract class HashTableTest {
 
-    final int SIZE;
+    private final int SIZE;
     final long SEED;
 
     ArrayList<HashNode> data;
     private long startTime;
     HashTable hashTable;
 
-    public HashTableTest(int size, long seed){
+    HashTableTest(int size, long seed){
         SEED = seed;
         SIZE = size;
         generateData();
