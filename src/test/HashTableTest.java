@@ -20,15 +20,16 @@ public abstract class HashTableTest {
         generateData();
     }
 
-    public abstract void runTest(HashType type);
+    public abstract double runTest(HashType type);
 
     void startTest(){
         startTime = System.nanoTime();
     }
 
-    void finishTest(HashType type){
-        long duration = System.nanoTime() - startTime;
-        writeToFile(nanoToSeconds(duration), type);
+    double finishTest(HashType type){
+        double duration = nanoToSeconds(System.nanoTime() - startTime);
+        writeToFile(duration, type);
+        return duration;
     }
 
     abstract void writeToFile(double duration, HashType type);

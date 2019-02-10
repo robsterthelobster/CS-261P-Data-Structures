@@ -6,13 +6,13 @@ public class LinearHashTable extends AbstractHashTable{
 
     private HashNode[] hashTable;
 
-    @Override
-    int hash(int key) {
-        return (key < 0) ? (key * -1) % 13 : key % 13;
-    }
+//    @Override
+//    int hash(int key) {
+//        return (key < 0) ? (key * -1) % 13 : key % 13;
+//    }
 
-    public LinearHashTable(int size){
-        super(size);
+    public LinearHashTable(int initialCapacity){
+        super(initialCapacity);
     }
 
     @Override
@@ -37,9 +37,14 @@ public class LinearHashTable extends AbstractHashTable{
     }
 
     @Override
+    protected void resize() {
+
+    }
+
+    @Override
     public void delete(int key) {
         int index = getIndexOfKey(key);
-        boolean[] alreadyVisited = new boolean[INITIAL_CAPACITY];
+        boolean[] alreadyVisited = new boolean[capacity];
         alreadyVisited[index] = true;
 
         if(hashTable[index] == null) return;
@@ -60,13 +65,14 @@ public class LinearHashTable extends AbstractHashTable{
 
     @Override
     public void clear() {
-        hashTable = new HashNode[INITIAL_CAPACITY];
-        size = 0;
+        super.clear();
+        hashTable = new HashNode[capacity];
     }
 
     private int getIndexOfKey(int key){
         int index = hash(key);
         for(int i = 0; hashTable[index] != null; ++i){
+
             if(hashTable[index].key == key){
                 return index;
             }
@@ -77,7 +83,7 @@ public class LinearHashTable extends AbstractHashTable{
 
     // debugging purposes
     public void printHashTable(){
-        for(int i = 0; i < INITIAL_CAPACITY; ++i){
+        for(int i = 0; i < capacity; ++i){
             System.out.print(i + ": ");
             if(hashTable[i] == null){
                 System.out.println("no element");
@@ -88,6 +94,6 @@ public class LinearHashTable extends AbstractHashTable{
     }
 
     protected int nextIndex(int index, int count){
-        return (index + 1) % INITIAL_CAPACITY;
+        return (index + 1) % capacity;
     }
 }

@@ -2,12 +2,13 @@ package hashtables;
 
 public class QuadraticHashTable extends LinearHashTable{
 
-    public QuadraticHashTable(int size) {
-        super(size);
+    public QuadraticHashTable(int initialCapacity) {
+        super(initialCapacity);
     }
 
     @Override
     protected int nextIndex(int index, int count){
-        return (index + count * count) % INITIAL_CAPACITY;
+        index = (index + count * count) % capacity;
+        return (index < 0) ? index * -1 : index;
     }
 }

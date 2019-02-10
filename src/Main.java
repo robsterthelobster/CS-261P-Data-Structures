@@ -1,18 +1,28 @@
-import hashtables.ChainedHashTable;
-import hashtables.HashTable;
-import hashtables.LinearHashTable;
-import hashtables.QuadraticHashTable;
-import test.testcase.TestCase1;
+import hashtables.*;
+import test.testcase.*;
 
 import java.util.NoSuchElementException;
 
 public class Main {
 
     public static void main(String[] args) {
-        //TestCase1 testCase1 = new TestCase1();
-        testHashLinear();
+        //TestCase001 testCase1 = new TestCase001();
+        //testHashLinear();
         //System.out.println();
         //testQuadratic();
+        //testCuckoo();
+        testHashChained();
+    }
+
+    static void testCuckoo(){
+        CuckooHashTable hashTable = new CuckooHashTable(7);
+        for(int i = 0; i < 7; ++i){
+            hashTable.set(i, i);
+        }
+        hashTable.printHashTable();
+        for(int i = 0; i < 7; ++i){
+            hashSearch(hashTable, i);
+        }
     }
 
     static void testHashChained(){
@@ -21,15 +31,15 @@ public class Main {
 
         ChainedHashTable chainedHashTable = new ChainedHashTable();
         System.out.println(chainedHashTable.getSize());
-        for(int i = 0; i < 2000; ++i){
+        for(int i = 0; i < 11; ++i){
             chainedHashTable.set(i, i);
         }
+        System.out.println("size: " + chainedHashTable.getSize());
+        chainedHashTable.printHashTable();
+        chainedHashTable.set(12,12);
+        System.out.println("size: " + chainedHashTable.getSize());
+        chainedHashTable.printHashTable();
 
-        System.out.println(chainedHashTable.search(1));
-        chainedHashTable.set(1, 444);
-        System.out.println(chainedHashTable.search(1));
-
-        System.out.println(chainedHashTable.getSize());
 
         System.out.println("collisions: " + chainedHashTable.getCollisionCount());
     }

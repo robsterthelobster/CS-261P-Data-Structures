@@ -10,15 +10,18 @@ public class TestCase {
     long SEEDS[];
 
     String filename;
+    String averageFilename;
 
     public TestCase(String filename){
         this.filename = filename;
-        createNewFile();
+        averageFilename = "Average" + filename;
+        createNewFile(filename);
+        createNewFile(averageFilename);
 
         generateSeeds(333);
     }
 
-    private void createNewFile(){
+    private void createNewFile(String filename){
         File file = new File(filename);
         if(file.exists()){
             file.delete();

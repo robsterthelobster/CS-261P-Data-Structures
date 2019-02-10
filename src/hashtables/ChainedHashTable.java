@@ -11,13 +11,23 @@ public class ChainedHashTable extends AbstractHashTable{
         super();
     }
 
-    @Override
-    public void printHashTable() {
-
+    public ChainedHashTable(int initialCapacity){
+        super(initialCapacity);
     }
 
-    public ChainedHashTable(int size){
-        super(size);
+    @Override
+    protected void resize() {
+        capacity = capacity * 2;
+        ArrayList<ArrayList<HashNode>> newTable = hashTable;
+        clear();
+
+        for(ArrayList<HashNode> list : newTable){
+            if(!list.isEmpty()){
+                for(HashNode node : list){
+                    set(node.key, node.value);
+                }
+            }
+        }
     }
 
     @Override
@@ -34,6 +44,10 @@ public class ChainedHashTable extends AbstractHashTable{
 
     @Override
     public void set(int key, int value) {
+        if(isNotInRange(size + 1)){
+            resize();
+        }
+
         HashNode node = new HashNode(key, value);
         int index = hash(key);
         int nodeIndex = hashTable.get(index).indexOf(node);
@@ -58,13 +72,30 @@ public class ChainedHashTable extends AbstractHashTable{
 
     @Override
     public void clear() {
-
+        super.clear();
         hashTable = new ArrayList<>();
-        for(int i = 0; i < INITIAL_CAPACITY; ++i){
+        for(int i = 0; i < capacity; ++i){
             hashTable.add(new ArrayList<>());
         }
     }
 
+    @Override
+    public void printHashTable() {
+        for(int i = 0; i < capacity; ++i){
+            System.out.print("index " + i + ": ");
+            ArrayList<HashNode> list = hashTable.get(i);
+            if(list.isEmpty()){
+                System.out.println("no elements");
+            }else{
+                for(HashNode node : list){
+                    System.out.print(node.key + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    // debugging
     public int getCollisionCount(){
         int count = 0;
         for(ArrayList<HashNode> arrayList : hashTable){

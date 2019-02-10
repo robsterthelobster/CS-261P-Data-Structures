@@ -19,13 +19,13 @@ public class InsertionTest extends HashTableTest {
     }
 
     @Override
-    public void runTest(HashType type) {
+    public double runTest(HashType type) {
         this.startTest();
         this.createHashTable(type);
         for(HashNode node : data){
             hashTable.set(node.key, node.value);
         }
-        this.finishTest(type);
+        return finishTest(type);
     }
 
     @Override

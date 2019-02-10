@@ -13,7 +13,4 @@ public interface HashTable {
     // Delete(key): Remove the pair associated with the given key. If no such pair, throw an exception.
     void delete(int key);
 
-    void clear();
-
-    int getSize();
 }
