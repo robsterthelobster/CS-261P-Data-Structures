@@ -1,24 +1,24 @@
 package hashtables;
 
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class CuckooHashTable extends AbstractArrayHashTable{
 
-    private double[] CUCKOO_CONSTANTS = {
-            118,
-            999,
-            881,
-            999,
-            119,
-            7253
-    };
+    Random cuckooRandom;
+    private double[] CUCKOO_CONSTANTS;
+    private final int CUCKOO_SEED = 333;
 
     public CuckooHashTable(){
         super();
+        cuckooRandom = new Random(CUCKOO_SEED);
+        CUCKOO_CONSTANTS = getConstants(cuckooRandom);
     }
 
     public CuckooHashTable(int initialCapacity){
         super(initialCapacity);
+        cuckooRandom = new Random(CUCKOO_SEED);
+        CUCKOO_CONSTANTS = getConstants(cuckooRandom);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CuckooHashTable extends AbstractArrayHashTable{
         super.set(key, value);
 
         boolean isFirst = true;
-        double threshold = 3 * Math.log((double) capacity /2) / Math.log(2);
+        double threshold = 3 * Math.log((double) capacity ) / Math.log(2);
         HashNode node = new HashNode(key, value);
 
         ++size;
@@ -58,9 +58,16 @@ public class CuckooHashTable extends AbstractArrayHashTable{
         }
 
         if(node != null){
-            resize(size);
+            //System.out.println("thres: " + threshold);
+            //resize(size);
+            rehash();
             set(node.key, node.value);
         }
+    }
+
+    private void rehash(){
+        CONSTANTS = getConstants(random);
+        CUCKOO_CONSTANTS = getConstants(cuckooRandom);
     }
 
     @Override

@@ -37,16 +37,16 @@ public abstract class HashTableTest {
     void createHashTable(HashType type){
         switch(type){
             case LINEAR:
-                hashTable = new LinearHashTable(SIZE);
+                hashTable = new LinearHashTable();
                 break;
             case CHAINED:
-                hashTable = new ChainedHashTable(SIZE);
+                hashTable = new ChainedHashTable();
                 break;
             case CUCKOO:
-                hashTable = new CuckooHashTable(SIZE);
+                hashTable = new CuckooHashTable();
                 break;
             case QUADRATIC:
-                hashTable = new QuadraticHashTable(SIZE);
+                hashTable = new QuadraticHashTable();
                 break;
             default:
                 System.err.println("Not a valid type");

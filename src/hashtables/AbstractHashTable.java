@@ -1,18 +1,16 @@
 package hashtables;
 
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public abstract class AbstractHashTable implements HashTable{
 
-    final double[] CONSTANTS = {
-            111,
-            333,
-            666,
-            999,
-            519
-    };
+    Random random;
+    double[] CONSTANTS;
+    private final int CONSTANTS_SIZE = 50;
+    private final int SEED = 999;
 
-    private int prime;
+    protected int prime;
     private final int K = 5;
     private final float UPPER_THRESHOLD = 0.75f;
     final float LOWER_THRESHOLD = 0.375f;
@@ -25,12 +23,26 @@ public abstract class AbstractHashTable implements HashTable{
 
     AbstractHashTable(int initialCapacity){
         capacity = initialCapacity;
+        random = new Random(SEED);
+        CONSTANTS = getConstants(random);
         clear();
     }
 
     AbstractHashTable(){
         capacity = 16;
+        random = new Random(SEED);
+        CONSTANTS = getConstants(random);
         clear();
+    }
+
+    protected double[] getConstants(Random random){
+
+        double[] arr = new double[CONSTANTS_SIZE];
+
+        for(int i = 0; i < CONSTANTS_SIZE; ++i){
+            arr[i] = random.nextDouble();
+        }
+        return arr;
     }
 
     @Override
@@ -53,7 +65,7 @@ public abstract class AbstractHashTable implements HashTable{
         Find next largest prime factor
         Taken from stack-overflow but modified for efficiency
      */
-    private int getPrime(int num){
+    protected int getPrime(int num){
         num = (num % 2 == 0) ? num + 1 : num + 2;
 
         for(boolean isPrime = false; !isPrime; num += 2){

@@ -21,9 +21,9 @@ public class TestCase001 extends TestCase{
     int[] sizes = {
             1000,
             10000,
-            //100000,
-            //1000000,
-            //10000000
+            100000,
+            1000000,
+            10000000
     };
 
     public TestCase001(){
@@ -33,7 +33,6 @@ public class TestCase001 extends TestCase{
         InsertionTest test;
 
         for(HashType type : HashType.values()){
-
             for(int size : sizes){
                 int count = 0;
                 double duration = 0;

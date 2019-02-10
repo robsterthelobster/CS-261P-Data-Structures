@@ -15,7 +15,7 @@ public class Main {
     }
 
     static void testCuckoo(){
-        CuckooHashTable hashTable = new CuckooHashTable(22);
+        CuckooHashTable hashTable = new CuckooHashTable();
 
 //        hashTable.set(12, 12);
 //        hashTable.set(26, 26);
@@ -24,7 +24,7 @@ public class Main {
 //        hashTable.set(28, 28);
 //        hashTable.set(94, 94);
 //        hashTable.set(15, 15);
-        bulkInsert(hashTable, 1000);
+        bulkInsert(hashTable, 100000);
         System.out.println(hashTable.getLoadFactor());
 
     }
@@ -73,7 +73,7 @@ public class Main {
             hashTable.set(i, i);
         }
 
-        hashTable.printHashTable();
+        //hashTable.printHashTable();
         for(int i = 0; i < numOfInserts; ++i){
             hashSearch(hashTable, i);
         }
@@ -84,7 +84,8 @@ public class Main {
             int value = hashTable.search(key);
             System.out.println("Hashsearch(" + key + "): " + value);
         }catch (NoSuchElementException e){
-            System.out.println(e.getMessage());
+            System.out.println("Hashsearch(" + key + "): ");
+            System.out.print(e.getMessage());
         }
     }
 }
