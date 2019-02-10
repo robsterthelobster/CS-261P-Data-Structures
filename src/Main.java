@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 public class Main {
 
     public static void main(String[] args) {
-        TestCase001 testCase1 = new TestCase001();
+        TestCase01 testCase1 = new TestCase01();
         //testHashLinear();
         //System.out.println();
         //testQuadratic();

@@ -11,8 +11,8 @@ public class InsertionTest extends HashTableTest {
     private static String FILENAME;
     private final int NUM_OF_INSERTIONS;
 
-    public InsertionTest(int size, int numOfInsertions, long seed, String filename) {
-        super(size, seed);
+    public InsertionTest(int numOfInsertions, long seed, String filename) {
+        super(numOfInsertions, seed);
 
         NUM_OF_INSERTIONS = numOfInsertions;
         FILENAME = filename;
@@ -22,9 +22,7 @@ public class InsertionTest extends HashTableTest {
     public double runTest(HashType type) {
         this.startTest();
         this.createHashTable(type);
-        for(HashNode node : data){
-            hashTable.set(node.key, node.value);
-        }
+        insertData();
         return finishTest(type);
     }
 
@@ -39,6 +37,12 @@ public class InsertionTest extends HashTableTest {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    void insertData(){
+        for(HashNode node : data){
+            hashTable.set(node.key, node.value);
         }
     }
 }
