@@ -2,21 +2,20 @@ package hashtables;
 
 import java.util.NoSuchElementException;
 
-abstract class AbstractHashTable implements HashTable{
+public abstract class AbstractHashTable implements HashTable{
 
-    final int K = 5;
-
-    protected final double[] CONSTANTS = {
+    final double[] CONSTANTS = {
             111,
             333,
             666,
             999,
             519
     };
-    protected int prime;
 
-    //private final float LOWER_THRESHOLD = 0.25f;
+    private int prime;
+    private final int K = 5;
     private final float UPPER_THRESHOLD = 0.75f;
+    final float LOWER_THRESHOLD = 0.375f;
 
     int size = 0;
     int capacity;
@@ -24,21 +23,26 @@ abstract class AbstractHashTable implements HashTable{
     NoSuchElementException noSuchElementException
             = new NoSuchElementException("No such element in hash table");
 
-    public AbstractHashTable(int initialCapacity){
+    AbstractHashTable(int initialCapacity){
         capacity = initialCapacity;
-        prime = getPrime(capacity);
         clear();
     }
 
-    public AbstractHashTable(){
+    AbstractHashTable(){
         capacity = 16;
-        prime = getPrime(capacity);
         clear();
     }
 
-    protected abstract void resize();
+    @Override
+    public void set(int key, int value){
+        if(isNotInRange(size + 1)){
+            resize(capacity);
+        }
+    }
 
-    protected boolean isNotInRange(int newSize){
+    protected abstract void resize(int newSize);
+
+    private boolean isNotInRange(int newSize){
         float load_factor = getLoadFactor(newSize);
         //return load_factor > UPPER_THRESHOLD || load_factor < LOWER_THRESHOLD;
         return load_factor >= UPPER_THRESHOLD;
@@ -88,6 +92,7 @@ abstract class AbstractHashTable implements HashTable{
 
     public void clear(){
         size = 0;
+        prime = getPrime(capacity);
     }
 
     public int getSize(){
@@ -99,7 +104,7 @@ abstract class AbstractHashTable implements HashTable{
      */
     public abstract void printHashTable();
 
-    private float getLoadFactor(){
+    public float getLoadFactor(){
         return getLoadFactor(size);
     }
 

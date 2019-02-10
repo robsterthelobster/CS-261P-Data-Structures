@@ -11,7 +11,10 @@ public class HashNode {
 
     @Override
     public boolean equals(Object o){
-        return ((HashNode) o).key == this.key;
+        if(o instanceof HashNode){
+            return ((HashNode) o).key == this.key;
+        }
+        return false;
     }
 
 }

@@ -16,21 +16,6 @@ public class ChainedHashTable extends AbstractHashTable{
     }
 
     @Override
-    protected void resize() {
-        capacity = capacity * 2;
-        ArrayList<ArrayList<HashNode>> newTable = hashTable;
-        clear();
-
-        for(ArrayList<HashNode> list : newTable){
-            if(!list.isEmpty()){
-                for(HashNode node : list){
-                    set(node.key, node.value);
-                }
-            }
-        }
-    }
-
-    @Override
     public int search(int key) throws NoSuchElementException{
         int index = hash(key);
 
@@ -44,9 +29,7 @@ public class ChainedHashTable extends AbstractHashTable{
 
     @Override
     public void set(int key, int value) {
-        if(isNotInRange(size + 1)){
-            resize();
-        }
+        super.set(key, value);
 
         HashNode node = new HashNode(key, value);
         int index = hash(key);
@@ -76,6 +59,21 @@ public class ChainedHashTable extends AbstractHashTable{
         hashTable = new ArrayList<>();
         for(int i = 0; i < capacity; ++i){
             hashTable.add(new ArrayList<>());
+        }
+    }
+
+    @Override
+    protected void resize(int newSize) {
+        capacity = capacity * 2;
+        ArrayList<ArrayList<HashNode>> newTable = hashTable;
+        clear();
+
+        for(ArrayList<HashNode> list : newTable){
+            if(!list.isEmpty()){
+                for(HashNode node : list){
+                    set(node.key, node.value);
+                }
+            }
         }
     }
 

@@ -2,14 +2,11 @@ package hashtables;
 
 import java.util.NoSuchElementException;
 
-public class LinearHashTable extends AbstractHashTable{
+public class LinearHashTable extends AbstractArrayHashTable{
 
-    private HashNode[] hashTable;
-
-//    @Override
-//    int hash(int key) {
-//        return (key < 0) ? (key * -1) % 13 : key % 13;
-//    }
+    public LinearHashTable(){
+        super();
+    }
 
     public LinearHashTable(int initialCapacity){
         super(initialCapacity);
@@ -26,6 +23,7 @@ public class LinearHashTable extends AbstractHashTable{
 
     @Override
     public void set(int key, int value) {
+        super.set(key, value);
 
         int index = getIndexOfKey(key);
         if(hashTable[index] == null){
@@ -34,11 +32,6 @@ public class LinearHashTable extends AbstractHashTable{
         }else{
             hashTable[index].value = value;
         }
-    }
-
-    @Override
-    protected void resize() {
-
     }
 
     @Override
@@ -61,12 +54,6 @@ public class LinearHashTable extends AbstractHashTable{
         }
         hashTable[index] = null;
         --size;
-    }
-
-    @Override
-    public void clear() {
-        super.clear();
-        hashTable = new HashNode[capacity];
     }
 
     private int getIndexOfKey(int key){

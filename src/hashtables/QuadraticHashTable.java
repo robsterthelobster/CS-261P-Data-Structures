@@ -2,6 +2,10 @@ package hashtables;
 
 public class QuadraticHashTable extends LinearHashTable{
 
+    public QuadraticHashTable(){
+        super();
+    }
+
     public QuadraticHashTable(int initialCapacity) {
         super(initialCapacity);
     }

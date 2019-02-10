@@ -2,7 +2,7 @@ package hashtables;
 
 import java.util.NoSuchElementException;
 
-public class CuckooHashTable extends AbstractHashTable{
+public class CuckooHashTable extends AbstractArrayHashTable{
 
     private double[] CUCKOO_CONSTANTS = {
             118,
@@ -13,7 +13,9 @@ public class CuckooHashTable extends AbstractHashTable{
             7253
     };
 
-    private HashNode[] hashTable;
+    public CuckooHashTable(){
+        super();
+    }
 
     public CuckooHashTable(int initialCapacity){
         super(initialCapacity);
@@ -34,25 +36,30 @@ public class CuckooHashTable extends AbstractHashTable{
     }
 
     @Override
-    protected void resize() {
-
-    }
-
-    @Override
     public void set(int key, int value) {
+        super.set(key, value);
+
         boolean isFirst = true;
-        double threshold = 2 * Math.log((double) capacity /2) / Math.log(2);
+        double threshold = 3 * Math.log((double) capacity /2) / Math.log(2);
         HashNode node = new HashNode(key, value);
 
+        ++size;
         for(int count = 0; node != null && count < threshold; ++count){
             int index = hash(node.key, isFirst);
             HashNode temp = hashTable[index];
+            if(temp != null && temp.key == node.key){
+                hashTable[index].value = node.value;
+                --size;
+                break;
+            }
             hashTable[index] = node;
             node = temp;
             isFirst = !isFirst;
         }
-        if(node == null){
-            // TODO
+
+        if(node != null){
+            resize(size);
+            set(node.key, node.value);
         }
     }
 
@@ -66,15 +73,10 @@ public class CuckooHashTable extends AbstractHashTable{
         int index = hash(key, isFirst);
         if(foundKey(key, index)){
             hashTable[index] = null;
+            --size;
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void clear() {
-        super.clear();
-        hashTable = new HashNode[capacity];
     }
 
     @Override
@@ -86,10 +88,10 @@ public class CuckooHashTable extends AbstractHashTable{
     private void printTable(boolean isFirst){
         System.out.println(isFirst ? "Table 1" : "Table 2");
 
-        int i = isFirst ? 0 : capacity /2;
-        int size = isFirst ? capacity /2 : capacity;
+        int i = isFirst ? 0 : capacity/2;
+        int size = isFirst ? capacity/2 : capacity;
         for(; i < size; ++i){
-            System.out.print(i + ": ");
+            System.out.print((isFirst ? i : i - capacity/2) + ": ");
             if(hashTable[i] != null){
                 System.out.println(hashTable[i].key + ":" + hash(hashTable[i].key, isFirst));
             }else{
@@ -97,6 +99,13 @@ public class CuckooHashTable extends AbstractHashTable{
             }
         }
     }
+
+//    private int hash(int key, boolean isFirst){
+//        int _capacity = capacity / 2;
+//        return isFirst ?
+//                key % _capacity :
+//                key / _capacity % _capacity + _capacity;
+//    }
 
     private int hash(int key, boolean isFirst){
         return isFirst ?

@@ -6,23 +6,27 @@ import java.util.NoSuchElementException;
 public class Main {
 
     public static void main(String[] args) {
-        //TestCase001 testCase1 = new TestCase001();
+        TestCase001 testCase1 = new TestCase001();
         //testHashLinear();
         //System.out.println();
         //testQuadratic();
         //testCuckoo();
-        testHashChained();
+        //testHashChained();
     }
 
     static void testCuckoo(){
-        CuckooHashTable hashTable = new CuckooHashTable(7);
-        for(int i = 0; i < 7; ++i){
-            hashTable.set(i, i);
-        }
-        hashTable.printHashTable();
-        for(int i = 0; i < 7; ++i){
-            hashSearch(hashTable, i);
-        }
+        CuckooHashTable hashTable = new CuckooHashTable(22);
+
+//        hashTable.set(12, 12);
+//        hashTable.set(26, 26);
+//        hashTable.set(92, 92);
+//        hashTable.set(23, 23);
+//        hashTable.set(28, 28);
+//        hashTable.set(94, 94);
+//        hashTable.set(15, 15);
+        bulkInsert(hashTable, 1000);
+        System.out.println(hashTable.getLoadFactor());
+
     }
 
     static void testHashChained(){
@@ -45,19 +49,8 @@ public class Main {
     }
 
     static void testQuadratic(){
-        QuadraticHashTable quadraticHashTable = new QuadraticHashTable(13);
-        quadraticHashTable.set(41, 41);
-        quadraticHashTable.set(18, 18);
-        quadraticHashTable.set(44, 44);
-        //quadraticHashTable.set(59, 59);
-        //quadraticHashTable.set(32, 32);
-        //quadraticHashTable.set(22, 22);
-        quadraticHashTable.set(31, 31);
-        quadraticHashTable.set(73, 73);
-        quadraticHashTable.printHashTable();
-        quadraticHashTable.delete(18);
-        quadraticHashTable.printHashTable();
-        hashSearch(quadraticHashTable, 31);
+        QuadraticHashTable hashTable = new QuadraticHashTable();
+        bulkInsert(hashTable, 1000);
     }
 
     static void testHashLinear(){
@@ -73,6 +66,17 @@ public class Main {
         linearHashTable.printHashTable();
         linearHashTable.delete(18);
         linearHashTable.printHashTable();
+    }
+
+    static void bulkInsert(AbstractHashTable hashTable, int numOfInserts){
+        for(int i = 0; i < numOfInserts; ++i){
+            hashTable.set(i, i);
+        }
+
+        hashTable.printHashTable();
+        for(int i = 0; i < numOfInserts; ++i){
+            hashSearch(hashTable, i);
+        }
     }
 
     static void hashSearch(HashTable hashTable, int key){
