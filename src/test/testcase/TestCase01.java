@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class TestCase01 extends TestCase{
 
     private int[] insertions = {
-            1000,
-            10000,
-            100000,
-            1000000,
+            //1000,
+            //10000,
+            //100000,
+            //1000000,
             10000000
     };
 
@@ -51,8 +51,9 @@ public class TestCase01 extends TestCase{
         }
     }
 
-    protected void bulkInsertTests(boolean create){
-        for(HashType type : HashType.values()){
+    private void bulkInsertTests(boolean create){
+        //for(HashType type : HashType.values()){
+        HashType type = HashType.CHAINED;
             for(int numOfInsertions : insertions){
                 int count = 0;
                 double duration = 0;
@@ -65,6 +66,6 @@ public class TestCase01 extends TestCase{
                 }
                 writeToFile(duration/count, type, numOfInsertions);
             }
-        }
+        //}
     }
 }

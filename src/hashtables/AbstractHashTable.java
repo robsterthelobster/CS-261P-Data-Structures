@@ -11,7 +11,7 @@ public abstract class AbstractHashTable implements HashTable{
     private final int SEED = 999;
 
     private int prime;
-    private final int K = 5;
+    private final int K = 25;
     private final float UPPER_THRESHOLD = 0.75f;
     final float LOWER_THRESHOLD = 0.375f;
 

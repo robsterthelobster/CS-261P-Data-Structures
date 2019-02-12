@@ -24,7 +24,7 @@ public class Main {
 //        hashTable.set(28, 28);
 //        hashTable.set(94, 94);
 //        hashTable.set(15, 15);
-        bulkInsert(hashTable, 100000);
+        bulkInsert(hashTable, 1000000);
         System.out.println(hashTable.getLoadFactor());
 
     }

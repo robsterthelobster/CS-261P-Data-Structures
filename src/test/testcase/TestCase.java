@@ -6,7 +6,7 @@ import java.util.Random;
 
 class TestCase {
 
-    final int SEED_LEN = 10;
+    final int SEED_LEN = 1;
     long SEEDS[];
 
     String filename;

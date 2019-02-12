@@ -20,8 +20,9 @@ public class InsertionTest extends HashTableTest {
 
     @Override
     public double runTest(HashType type) {
-        this.startTest();
         this.createHashTable(type);
+        this.startTest();
+
         insertData();
         return finishTest(type);
     }

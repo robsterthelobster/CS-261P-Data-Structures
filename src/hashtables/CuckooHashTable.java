@@ -43,14 +43,12 @@ public class CuckooHashTable extends AbstractArrayHashTable{
         double threshold = 3 * Math.log((double) capacity ) / Math.log(2);
         HashNode node = new HashNode(key, value);
 
-        ++size;
         for(int count = 0; node != null && count < threshold; ++count){
             int index = hash(node.key, isFirst);
             HashNode temp = hashTable[index];
             if(temp != null && temp.key == node.key){
                 hashTable[index].value = node.value;
-                --size;
-                break;
+                return;
             }
             hashTable[index] = node;
             node = temp;
@@ -63,11 +61,13 @@ public class CuckooHashTable extends AbstractArrayHashTable{
             rehash();
             set(node.key, node.value);
         }
+        ++size;
     }
 
     private void rehash(){
         CONSTANTS = getConstants(random);
         CUCKOO_CONSTANTS = getConstants(cuckooRandom);
+        resize(size);
     }
 
     @Override
