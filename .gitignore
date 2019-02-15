@@ -26,3 +26,4 @@ out/
 *.csv
 cs261p_project1.iml
 *.xlsx
+.DS_Store
