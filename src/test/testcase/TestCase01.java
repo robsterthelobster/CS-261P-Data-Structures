@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class TestCase01 extends TestCase{
 
     private int[] insertions = {
-            //1000,
-            //10000,
-            //100000,
-            //1000000,
+            1000,
+            10000,
+            100000,
+            1000000,
             10000000
     };
 
@@ -38,22 +38,9 @@ public class TestCase01 extends TestCase{
         bulkInsertTests(create);
     }
 
-    private void writeToFile(double duration, HashType type, int numOfInsertions) {
-        try {
-            PrintWriter printWriter = new PrintWriter(
-                    new FileWriter(averageFilename, true));
-            printWriter.printf("%s, %d, %f\n",
-                    type.name(), numOfInsertions, duration);
-            printWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void bulkInsertTests(boolean create){
-        //for(HashType type : HashType.values()){
-        HashType type = HashType.CHAINED;
+        for(HashType type : HashType.values()){
+        //HashType type = HashType.CHAINED;
             for(int numOfInsertions : insertions){
                 int count = 0;
                 double duration = 0;
@@ -66,6 +53,6 @@ public class TestCase01 extends TestCase{
                 }
                 writeToFile(duration/count, type, numOfInsertions);
             }
-        //}
+        }
     }
 }

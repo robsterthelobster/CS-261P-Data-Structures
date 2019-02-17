@@ -1,12 +1,16 @@
 package test.testcase;
 
+import test.HashType;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 class TestCase {
 
-    final int SEED_LEN = 1;
+    final int SEED_LEN = 10;
     long SEEDS[];
 
     String filename;
@@ -38,6 +42,19 @@ class TestCase {
         SEEDS = new long[SEED_LEN];
         for(int i = 0; i < SEED_LEN; ++i){
             SEEDS[i] = random.nextLong();
+        }
+    }
+
+    protected void writeToFile(double duration, HashType type, int numOfInsertions) {
+        try {
+            PrintWriter printWriter = new PrintWriter(
+                    new FileWriter(averageFilename, true));
+            printWriter.printf("%s, %d, %f\n",
+                    type.name(), numOfInsertions, duration);
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
