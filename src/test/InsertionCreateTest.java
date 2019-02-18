@@ -8,7 +8,6 @@ public class InsertionCreateTest extends InsertionTest{
         super(numOfInsertions, seed, filename);
     }
 
-
     @Override
     public double runTest(HashType type) {
         this.createHashTable(type);

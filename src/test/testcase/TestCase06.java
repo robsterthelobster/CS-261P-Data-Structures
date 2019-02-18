@@ -1,39 +1,35 @@
 package test.testcase;
 
-import test.CreateTest;
 import test.HashType;
-import test.InsertionCreateTest;
-import test.InsertionTest;
+import test.RandomTest;
 
-/*
-    create a bunch of tables tests
- */
-public class TestCase00 extends TestCase{
+public class TestCase06 extends TestCase{
 
     private int[] insertions = {
+            500,
             1000,
-            10000,
-            100000
+            2000
     };
 
-    public TestCase00() {
-        super("TestCase00.csv");
+    public TestCase06() {
+        super("TestCase06.csv");
 
-        bulkCreate();
+        bulkTests();
     }
-    private void bulkCreate(){
+
+    protected void bulkTests(){
         for(HashType type : HashType.values()){
-            //HashType type = HashType.CHAINED;
             for(int numOfInsertions : insertions){
                 int count = 0;
                 double duration = 0;
                 for(long seed : SEEDS){
-                    CreateTest test = new CreateTest(numOfInsertions, seed, filename);
+                    RandomTest test = new RandomTest(numOfInsertions, seed, filename);
                     duration += test.runTest(type);
                     count++;
                 }
                 writeToFile(duration/count, type, numOfInsertions);
             }
+
         }
     }
 }

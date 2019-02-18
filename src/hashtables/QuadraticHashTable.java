@@ -12,7 +12,6 @@ public class QuadraticHashTable extends LinearHashTable{
 
     @Override
     protected int nextIndex(int index, int count){
-        index = (index + count * count) % capacity;
-        return (index < 0) ? index * -1 : index;
+        return (index + count * count) % capacity;
     }
 }

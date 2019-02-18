@@ -7,8 +7,8 @@ import java.util.Random;
 
 public abstract class HashTableTest {
 
-    private final int SIZE;
-    final long SEED;
+    protected final int SIZE;
+    protected final long SEED;
 
     ArrayList<HashNode> data;
     private long startTime;

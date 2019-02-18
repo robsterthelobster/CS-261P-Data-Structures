@@ -10,8 +10,12 @@ public class TestCase03 extends TestCase{
 
     private int[] insertions = {
             1000,
-            10000,
-            100000
+            25000,
+            50000,
+            75000,
+            100000,
+            //1000000,
+            //10000000
     };
 
     public TestCase03() {
