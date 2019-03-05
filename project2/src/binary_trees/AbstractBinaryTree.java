@@ -1,17 +1,11 @@
 package binary_trees;
 
-abstract class AbstractBinaryTree implements Tree{
+public abstract class AbstractBinaryTree implements Tree{
     TreeNode root;
-    int count;
 
     @Override
     public void create(){
         root = null;
-        count = 0;
-    }
-
-    public int getCount(){
-        return count;
     }
 
     /*
@@ -20,6 +14,7 @@ abstract class AbstractBinaryTree implements Tree{
      */
     public void printTree(){
         System.out.println(printTree(root));
+        System.out.println();
     }
 
     private String printTree(TreeNode node){
