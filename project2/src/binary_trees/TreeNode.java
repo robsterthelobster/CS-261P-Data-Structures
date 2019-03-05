@@ -19,7 +19,7 @@ class TreeNode {
                 ((TreeNode) o).value == this.value;
     }
 
-    public void copyNode(TreeNode node){
+    void copyNode(TreeNode node){
         this.key = node.key;
         this.value = node.value;
     }

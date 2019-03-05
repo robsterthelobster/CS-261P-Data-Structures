@@ -3,6 +3,10 @@ package binary_trees;
 public abstract class AbstractBinaryTree implements Tree{
     TreeNode root;
 
+    AbstractBinaryTree(){
+        this.create();
+    }
+
     @Override
     public void create(){
         root = null;
