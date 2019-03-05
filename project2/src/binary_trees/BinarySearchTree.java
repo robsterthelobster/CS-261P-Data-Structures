@@ -26,7 +26,6 @@ public class BinarySearchTree extends AbstractBinaryTree {
         TreeNode node = search(key);
         if(node == null) return;
 
-        boolean isRight = parent.value < node.value;
         if(node.left == null || node.right == null){
             TreeNode temp;
             if(node.left == null){
@@ -37,7 +36,7 @@ public class BinarySearchTree extends AbstractBinaryTree {
 
             if (node.equals(root)) {
                 root = temp;
-            } else if (isRight) {
+            } else if (isRight(node)) {
                 parent.right = temp;
             } else {
                 parent.left = temp;

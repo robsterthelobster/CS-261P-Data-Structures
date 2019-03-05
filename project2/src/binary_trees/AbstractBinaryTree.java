@@ -35,6 +35,10 @@ public abstract class AbstractBinaryTree implements Tree{
         return null;
     }
 
+    boolean isRight(TreeNode node){
+        return parent.value < node.value;
+    }
+
     /*
         DEBUG helper method
         JSON format plug in: http://ysangkok.github.io/js-clrs-btree/btree.html

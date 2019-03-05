@@ -4,8 +4,8 @@ package binary_trees;
 public class TreeNode {
     int key;
     int value;
-    public TreeNode left;
-    public TreeNode right;
+    TreeNode left;
+    TreeNode right;
 
     TreeNode(int key){
         this.key = key;
