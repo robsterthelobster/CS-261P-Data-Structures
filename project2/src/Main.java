@@ -1,5 +1,6 @@
 import binary_trees.AbstractBinaryTree;
 import binary_trees.BinarySearchTree;
+import binary_trees.TreeNode;
 
 public class Main {
 
@@ -20,7 +21,7 @@ public class Main {
         BinarySearchTree tree = new BinarySearchTree();
         insert(tree);
 //        delete(tree, 0);
-        delete(tree, 0);
+//        delete(tree, 0);
     }
 
     static void testBSTDelete(){
@@ -52,8 +53,9 @@ public class Main {
     static void insert(AbstractBinaryTree tree){
         //        tree.insert(0);
         tree.insert(2);
-        tree.insert(3);
         tree.insert(4);
+        tree.insert(3);
+
         tree.insert(7);
         tree.insert(-2);
         tree.insert(1);

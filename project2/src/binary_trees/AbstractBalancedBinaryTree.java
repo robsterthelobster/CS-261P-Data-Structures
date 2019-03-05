@@ -12,6 +12,18 @@ public abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
 
         AVLNode(int key) {
             super(key);
+            rank = 0;
         }
+    }
+
+    void rotateRight(int key){
+        AVLNode node = (AVLNode) search(key);
+        AVLNode temp = (AVLNode) node.left.right;
+        node.left.right = node;
+        node.left = temp;
+    }
+
+    void rotateLeft(int key){
+
     }
 }

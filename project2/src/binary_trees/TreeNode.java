@@ -1,11 +1,11 @@
 package binary_trees;
 
 // assuming key == value ALWAYS
-class TreeNode {
+public class TreeNode {
     int key;
     int value;
-    TreeNode left;
-    TreeNode right;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode(int key){
         this.key = key;

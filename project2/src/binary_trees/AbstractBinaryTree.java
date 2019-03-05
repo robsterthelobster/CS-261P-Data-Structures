@@ -1,6 +1,11 @@
 package binary_trees;
 
 public abstract class AbstractBinaryTree implements Tree{
+
+    /*  so I can reuse search code
+        have to call search before using parent
+    */
+    TreeNode parent;
     TreeNode root;
 
     AbstractBinaryTree(){
@@ -10,6 +15,24 @@ public abstract class AbstractBinaryTree implements Tree{
     @Override
     public void create(){
         root = null;
+    }
+
+    @Override
+    public TreeNode search(int key) {
+        TreeNode node = root;
+        parent = root;
+        while(node != null){
+            if(key < node.value){
+                parent = node;
+                node = node.left;
+            }else if(key >  node.value){
+                parent = node;
+                node = node.right;
+            }else{
+                return node;
+            }
+        }
+        return null;
     }
 
     /*

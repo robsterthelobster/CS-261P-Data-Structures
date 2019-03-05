@@ -2,29 +2,6 @@ package binary_trees;
 
 public class BinarySearchTree extends AbstractBinaryTree {
 
-    /*  so I can reuse search code
-        have to call search before using parent
-     */
-    private TreeNode parent;
-
-    @Override
-    public TreeNode search(int key) {
-        TreeNode node = root;
-        parent = root;
-        while(node != null){
-            if(key < node.value){
-                parent = node;
-                node = node.left;
-            }else if(key >  node.value){
-                parent = node;
-                node = node.right;
-            }else{
-                return node;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void insert(int key) {
         if(root == null){
@@ -47,39 +24,37 @@ public class BinarySearchTree extends AbstractBinaryTree {
             return;
         }
         TreeNode node = search(key);
+        if(node == null) return;
 
-        if (node != null) {
-            boolean isRight = parent.value < node.value;
-            if (node.left == null) {
-                if (node.equals(root)) {
-                    root = node.right;
-                } else if (isRight) {
-                    parent.right = node.right;
-                } else {
-                    parent.left = node.right;
-                }
-            } else if (node.right == null) {
-                if (node.equals(root)) {
-                    root = node.left;
-                } else if (isRight) {
-                    parent.right = node.left;
-                } else {
-                    parent.left = node.left;
-                }
+        boolean isRight = parent.value < node.value;
+        if(node.left == null || node.right == null){
+            TreeNode temp;
+            if(node.left == null){
+                temp = node.right;
+            }else{
+                temp = node.left;
+            }
+
+            if (node.equals(root)) {
+                root = temp;
+            } else if (isRight) {
+                parent.right = temp;
             } else {
-                TreeNode successor = node.right;
+                parent.left = temp;
+            }
+        } else {
+            TreeNode successor = node.right;
 
-                parent = node;
-                while (successor.left != null) {
-                    parent = successor;
-                    successor = successor.left;
-                }
-                node.copyNode(successor);
-                if (parent.equals(node)) {
-                    parent.right = parent.right.right;
-                } else {
-                    parent.left = parent.left.right;
-                }
+            parent = node;
+            while (successor.left != null) {
+                parent = successor;
+                successor = successor.left;
+            }
+            node.copyNode(successor);
+            if (parent.equals(node)) {
+                parent.right = parent.right.right;
+            } else {
+                parent.left = parent.left.right;
             }
         }
     }
