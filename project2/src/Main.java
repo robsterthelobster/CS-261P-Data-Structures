@@ -1,7 +1,9 @@
 import binary_trees.AVLTree;
 import binary_trees.AbstractBinaryTree;
 import binary_trees.BinarySearchTree;
-import binary_trees.TreeNode;
+import binary_trees.SkipList;
+
+import java.util.Random;
 
 public class Main {
 
@@ -15,9 +17,19 @@ public class Main {
         System.out.println("Hello World!");
         System.out.println("TREEEEEEEEES");
         //testBST();
-        //testBSTDelete();
+        //estBSTDelete();
         //testAVLTreeRotations();
-        testAVLTree();
+        //testAVLTree();
+        testSkipList();
+    }
+
+    static void testSkipList(){
+        SkipList skipList = new SkipList();
+        Random random = new Random(333);
+        for(int i = 0; i < 10; ++i){
+            skipList.insert(random.nextInt(100));
+            skipList.printTree();
+        }
     }
 
     static void testAVLTree(){
@@ -103,7 +115,10 @@ public class Main {
 
     static void delete(AbstractBinaryTree tree, int key){
         System.out.println("Deleting key: " + key);
+        System.out.println("IsBST before delete: " + tree.isBST());
         tree.delete(key);
+        System.out.println("IsBST after delete: " + tree.isBST());
         tree.printTree();
+
     }
 }

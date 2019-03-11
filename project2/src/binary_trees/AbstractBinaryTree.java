@@ -22,10 +22,10 @@ public abstract class AbstractBinaryTree implements Tree{
         TreeNode node = root;
         parent = root;
         while(node != null){
-            if(key < node.value){
+            if(key < node.key){
                 parent = node;
                 node = node.left;
-            }else if(key >  node.value){
+            }else if(key >  node.key){
                 parent = node;
                 node = node.right;
             }else{
@@ -36,7 +36,7 @@ public abstract class AbstractBinaryTree implements Tree{
     }
 
     boolean isRight(TreeNode node){
-        return parent.value < node.value;
+        return parent.key < node.key;
     }
 
     /*
@@ -67,5 +67,23 @@ public abstract class AbstractBinaryTree implements Tree{
         }
         sb.append("}");
         return sb.toString();
+    }
+
+    // talked about in discussion
+    // taken from https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+    public boolean isBST()  {
+        return isBSTUtil(root, Integer.MIN_VALUE,
+                Integer.MAX_VALUE);
+    }
+
+    boolean isBSTUtil(TreeNode node, int min, int max) {
+        if (node == null)
+            return true;
+
+        if (node.key < min || node.key > max)
+            return false;
+
+        return (isBSTUtil(node.left, min, node.key - 1) &&
+                isBSTUtil(node.right, node.key + 1, max));
     }
 }
