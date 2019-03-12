@@ -28,8 +28,9 @@ public class Main {
         Random random = new Random(333);
         for(int i = 0; i < 10; ++i){
             skipList.insert(random.nextInt(100));
-            skipList.printTree();
+
         }
+        skipList.printTree();
     }
 
     static void testAVLTree(){

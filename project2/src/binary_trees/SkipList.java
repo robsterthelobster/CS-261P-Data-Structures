@@ -8,11 +8,12 @@ public class SkipList implements Tree{
     class SkipNode{
         double key; // has to be double to use INFINITY
 
-        SkipNode next;
+        ArrayList<SkipNode> next;
         SkipNode down;
 
         SkipNode(double key){
             this.key = key;
+            next = new ArrayList<>();
         }
 
         @Override
@@ -36,9 +37,9 @@ public class SkipList implements Tree{
     public void create() {
         random = new Random();
         heads = new ArrayList<>();
-        head = new SkipNode(Double.POSITIVE_INFINITY);
+        head = new SkipNode(Double.NEGATIVE_INFINITY);
         tail = new SkipNode(Double.POSITIVE_INFINITY);
-        head.next = tail;
+        head.next.add(tail);
         heads.add(head);
         numOfLevels = 1;
         count = 0;
@@ -53,34 +54,46 @@ public class SkipList implements Tree{
     public void insert(int key) {
         if(count == 0){
             SkipNode node = new SkipNode(key);
-            node.next = head.next;
-            head.next = node;
+            node.next.add(head.next.get(0));
+            head.next.set(0, node);
             ++count;
             return;
         }
 
-        //int level = selectRandomLevel();
-        int level = 2;
+        int level = selectRandomLevel();
         numOfLevels = Math.max(numOfLevels, level);
         while(heads.size() < numOfLevels){
             SkipNode temp = new SkipNode(Double.NEGATIVE_INFINITY);
-            temp.next = tail;
+            temp.next = head.next;
+            temp.next.add(tail);
             heads.add(temp);
 
         }
         SkipNode[] prev = new SkipNode[numOfLevels];
+        SkipNode[] curr = new SkipNode[numOfLevels];
+        heads.toArray(curr);
 
         for(int i = numOfLevels - 1; i >= 0; --i){
-            SkipNode curr = heads.get(i);
-            while(curr != tail && key > curr.next.key){
-                curr = curr.next;
+            SkipNode temp = curr[i];
+            while(temp != tail && temp.next.size() > i && key > temp.next.get(i).key){
+                temp = temp.next.get(i);
             }
-            prev[i] = curr;
-            SkipNode node = new SkipNode(key);
-            node.next = curr.next;
-            curr.next = node;
+            prev[i] = temp;
+
+
+            if(i == 0){
+                SkipNode node = new SkipNode(key);
+                node.next.add(temp.next.get(i));
+                temp.next.set(i, node);
+                ++count;
+
+                for(int j = 1; j < level; ++j){
+                    node.next.add(prev[j].next.get(j));
+                    prev[j].next.set(j, node);
+                }
+            }
         }
-        ++count;
+
     }
 
     @Override
@@ -95,16 +108,17 @@ public class SkipList implements Tree{
     }
 
     public void printTree(){
-        for(int i = heads.size() - 1; i >= 0; --i){
-            printLevel(heads.get(i));
+        for(int i = numOfLevels - 1; i >= 0; --i){
+            printLevel(i);
         }
     }
 
-    private void printLevel(SkipNode node){
-        SkipNode temp = node.next;
+    private void printLevel(int i){
+        SkipNode temp = heads.get(i).next.get(i);
+        System.out.print("Level " + i + ": ");
         while(temp != tail){
             System.out.print((int)temp.key + " ");
-            temp = temp.next;
+            temp = temp.next.get(i);
         }
         System.out.println();
     }
