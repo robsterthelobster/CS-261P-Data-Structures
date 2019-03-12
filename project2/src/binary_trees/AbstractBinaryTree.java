@@ -18,7 +18,7 @@ public abstract class AbstractBinaryTree implements Tree{
     }
 
     @Override
-    public TreeNode search(int key) {
+    public TreeNode search(double key) {
         TreeNode node = root;
         parent = root;
         while(node != null){
@@ -76,7 +76,7 @@ public abstract class AbstractBinaryTree implements Tree{
                 Integer.MAX_VALUE);
     }
 
-    boolean isBSTUtil(TreeNode node, int min, int max) {
+    boolean isBSTUtil(TreeNode node, double min, double max) {
         if (node == null)
             return true;
 

@@ -26,7 +26,7 @@ public class Main {
     static void testSkipList(){
         SkipList skipList = new SkipList();
         Random random = new Random(333);
-        for(int i = 0; i < 10; ++i){
+        for(int i = 0; i < 100; ++i){
             skipList.insert(random.nextInt(100));
 
         }

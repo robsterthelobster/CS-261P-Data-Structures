@@ -10,13 +10,13 @@ public abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
     class AVLNode extends TreeNode{
         int rank;
 
-        AVLNode(int key) {
+        AVLNode(double key) {
             super(key);
             rank = 0;
         }
     }
 
-    public void rotateRight(int key){
+    public void rotateRight(double key){
         AVLNode node = (AVLNode) search(key);
         setNode((AVLNode) node.left, node);
         AVLNode temp = (AVLNode) node.left.right;
@@ -24,7 +24,7 @@ public abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
         node.left = temp;
     }
 
-    public void rotateLeft(int key){
+    public void rotateLeft(double key){
         AVLNode node = (AVLNode) search(key);
         setNode((AVLNode) node.right, node);
         AVLNode temp = (AVLNode) node.right.left;

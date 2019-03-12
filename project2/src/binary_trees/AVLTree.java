@@ -3,7 +3,7 @@ package binary_trees;
 public class AVLTree extends AbstractBalancedBinaryTree{
 
     @Override
-    public void insert(int key) {
+    public void insert(double key) {
         if(root == null){
             root = new AVLNode(key);
             return;
@@ -19,7 +19,7 @@ public class AVLTree extends AbstractBalancedBinaryTree{
     }
 
     @Override
-    public void delete(int key) {
+    public void delete(double key) {
 
     }
 }

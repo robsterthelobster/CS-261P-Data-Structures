@@ -9,7 +9,6 @@ public class SkipList implements Tree{
         double key; // has to be double to use INFINITY
 
         ArrayList<SkipNode> next;
-        SkipNode down;
 
         SkipNode(double key){
             this.key = key;
@@ -35,7 +34,7 @@ public class SkipList implements Tree{
 
     @Override
     public void create() {
-        random = new Random();
+        random = new Random(333);
         heads = new ArrayList<>();
         head = new SkipNode(Double.NEGATIVE_INFINITY);
         tail = new SkipNode(Double.POSITIVE_INFINITY);
@@ -46,12 +45,12 @@ public class SkipList implements Tree{
     }
 
     @Override
-    public TreeNode search(int key) {
+    public TreeNode search(double key) {
         return null;
     }
 
     @Override
-    public void insert(int key) {
+    public void insert(double key) {
         if(count == 0){
             SkipNode node = new SkipNode(key);
             node.next.add(head.next.get(0));
@@ -69,35 +68,29 @@ public class SkipList implements Tree{
             heads.add(temp);
 
         }
-        SkipNode[] prev = new SkipNode[numOfLevels];
         SkipNode[] curr = new SkipNode[numOfLevels];
         heads.toArray(curr);
 
+        SkipNode node = new SkipNode(key);
+        for(int i = 0; i < numOfLevels; ++i){
+            node.next.add(tail);
+        }
         for(int i = numOfLevels - 1; i >= 0; --i){
             SkipNode temp = curr[i];
             while(temp != tail && temp.next.size() > i && key > temp.next.get(i).key){
                 temp = temp.next.get(i);
             }
-            prev[i] = temp;
 
-
-            if(i == 0){
-                SkipNode node = new SkipNode(key);
-                node.next.add(temp.next.get(i));
+            if(i < level){
+                node.next.set(i, temp.next.get(i));
                 temp.next.set(i, node);
-                ++count;
-
-                for(int j = 1; j < level; ++j){
-                    node.next.add(prev[j].next.get(j));
-                    prev[j].next.set(j, node);
-                }
             }
         }
-
+        ++count;
     }
 
     @Override
-    public void delete(int key) {
+    public void delete(double key) {
 
     }
 

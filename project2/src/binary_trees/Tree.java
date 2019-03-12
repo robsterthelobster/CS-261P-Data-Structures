@@ -2,7 +2,7 @@ package binary_trees;
 
 public interface Tree {
     void create();
-    TreeNode search(int key);
-    void insert(int key);
-    void delete(int key);
+    TreeNode search(double key);
+    void insert(double key);
+    void delete(double key);
 }
