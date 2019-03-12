@@ -5,20 +5,12 @@ import java.util.Random;
 
 public class SkipList implements Tree{
 
-    class SkipNode{
-        double key; // has to be double to use INFINITY
-
+    class SkipNode extends Node{
         ArrayList<SkipNode> next;
-        SkipNode down;
 
-        SkipNode(double key){
-            this.key = key;
+        SkipNode(double key) {
+            super(key);
             next = new ArrayList<>();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof SkipNode && ((SkipNode) obj).key == this.key;
         }
     }
 
@@ -28,6 +20,7 @@ public class SkipList implements Tree{
     private int numOfLevels;
     private Random random;
     private int count;
+    private SkipNode[] prev;
 
     public SkipList(){
         this.create();
@@ -47,32 +40,10 @@ public class SkipList implements Tree{
 
     @Override
     public Node search(double key) {
-        return null;
+        return search(key, false);
     }
 
-    @Override
-    public void insert(double key) {
-        if(count == 0){
-            SkipNode node = new SkipNode(key);
-            node.next.add(head.next.get(0));
-            head.next.set(0, node);
-            ++count;
-            return;
-        }
-
-        int level = selectRandomLevel();
-        numOfLevels = Math.max(numOfLevels, level);
-        while(heads.size() < numOfLevels){
-//            SkipNode temp = new SkipNode(Double.NEGATIVE_INFINITY);
-//            temp.next = head.next;
-//
-//            temp.next.add(tail);
-            head.next.add(tail);
-
-            heads.add(head);
-
-        }
-        SkipNode[] prev = new SkipNode[numOfLevels];
+    private Node search(double key, boolean toBottom){
         SkipNode[] curr = new SkipNode[numOfLevels];
         heads.toArray(curr);
 
@@ -82,28 +53,55 @@ public class SkipList implements Tree{
                 temp = temp.next.get(i);
             }
             prev[i] = temp;
+            if(temp.next.get(i).key == key && (!toBottom || i == 0)) return temp.next.get(i);
+        }
+        return null;
+    }
 
-            if(i == 0){
-                // identical key --> do nothing
-                // in a real tree, replace value
-                if(temp.next.get(0).key == key) return;
+    @Override
+    public void insert(double key) {
+        SkipNode node = new SkipNode(key);
+        if(count == 0){
+            addNode(node, head);
+            return;
+        }
 
-                SkipNode node = new SkipNode(key);
-                node.next.add(temp.next.get(i));
-                temp.next.set(i, node);
-                ++count;
+        int level = selectRandomLevel();
+        numOfLevels = Math.max(numOfLevels, level);
+        while(heads.size() < numOfLevels){
+            head.next.add(tail);
+            heads.add(head);
+        }
 
-                for(int j = 1; j < level; ++j){
-                    node.next.add(prev[j].next.get(j));
-                    prev[j].next.set(j, node);
-                }
+        prev = new SkipNode[numOfLevels];
+        SkipNode temp = (SkipNode) search(key);
+        if(temp == null){
+            addNode(node, prev[0]);
+
+            for(int i = 1; i < level; ++i){
+                node.next.add(prev[i].next.get(i));
+                prev[i].next.set(i, node);
             }
         }
     }
 
+    private void addNode(SkipNode add, SkipNode prev){
+        add.next.add(prev.next.get(0));
+        prev.next.set(0, add);
+        ++count;
+    }
+
     @Override
     public void delete(double key) {
+        prev = new SkipNode[numOfLevels];
+        if(search(key, true) == null) return;
 
+        for(int i = numOfLevels - 1; i >= 0; --i){
+            ArrayList<SkipNode> nodes = prev[i].next;
+            if(nodes.get(i).key == key){
+                nodes.set(i, nodes.get(i).next.get(i));
+            }
+        }
     }
 
     private int selectRandomLevel(){

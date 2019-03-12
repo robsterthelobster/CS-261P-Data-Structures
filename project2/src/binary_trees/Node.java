@@ -1,7 +1,7 @@
 package binary_trees;
 
 public class Node {
-    double key;
+    public double key;
 
     Node(double key){
         this.key = key;

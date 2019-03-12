@@ -1,7 +1,4 @@
-import binary_trees.AVLTree;
-import binary_trees.AbstractBinaryTree;
-import binary_trees.BinarySearchTree;
-import binary_trees.SkipList;
+import binary_trees.*;
 
 import java.util.Random;
 
@@ -26,14 +23,39 @@ public class Main {
     static void testSkipList(){
         SkipList skipList = new SkipList();
         Random random = new Random(555);
-        for(int i = 0; i < 15; ++i){
+        for(int i = 0; i < 30; ++i){
             int key = random.nextInt(100);
             System.out.print(key + " ");
             skipList.insert(key);
         }
         System.out.println();
         System.out.println();
+
         skipList.printTree();
+
+        skipList.delete(89);
+        System.out.println("Delete 89");
+        skipList.printTree();
+
+        skipList.delete(21);
+        System.out.println("Delete 21");
+        skipList.printTree();
+
+
+//        random = new Random(555);
+//        for(int i = 0; i < 15; ++i){
+//            search(skipList, random.nextInt(100));
+//        }
+//        for(int i = 0; i < 5; ++i){
+//            search(skipList, i);
+//        }
+
+    }
+
+    static void search(Tree tree, int key){
+        Node node = tree.search(key);
+        if(node == null) System.out.println(key + ": Key is null");
+        else System.out.println(key + ": " + node.key);
     }
 
     static void testAVLTree(){
