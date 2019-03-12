@@ -25,11 +25,14 @@ public class Main {
 
     static void testSkipList(){
         SkipList skipList = new SkipList();
-        Random random = new Random(333);
-        for(int i = 0; i < 100; ++i){
-            skipList.insert(random.nextInt(100));
-
+        Random random = new Random(555);
+        for(int i = 0; i < 15; ++i){
+            int key = random.nextInt(100);
+            System.out.print(key + " ");
+            skipList.insert(key);
         }
+        System.out.println();
+        System.out.println();
         skipList.printTree();
     }
 

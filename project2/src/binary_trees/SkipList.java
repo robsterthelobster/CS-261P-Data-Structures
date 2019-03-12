@@ -9,6 +9,7 @@ public class SkipList implements Tree{
         double key; // has to be double to use INFINITY
 
         ArrayList<SkipNode> next;
+        SkipNode down;
 
         SkipNode(double key){
             this.key = key;
@@ -45,7 +46,7 @@ public class SkipList implements Tree{
     }
 
     @Override
-    public TreeNode search(double key) {
+    public Node search(double key) {
         return null;
     }
 
@@ -62,31 +63,42 @@ public class SkipList implements Tree{
         int level = selectRandomLevel();
         numOfLevels = Math.max(numOfLevels, level);
         while(heads.size() < numOfLevels){
-            SkipNode temp = new SkipNode(Double.NEGATIVE_INFINITY);
-            temp.next = head.next;
-            temp.next.add(tail);
-            heads.add(temp);
+//            SkipNode temp = new SkipNode(Double.NEGATIVE_INFINITY);
+//            temp.next = head.next;
+//
+//            temp.next.add(tail);
+            head.next.add(tail);
+
+            heads.add(head);
 
         }
+        SkipNode[] prev = new SkipNode[numOfLevels];
         SkipNode[] curr = new SkipNode[numOfLevels];
         heads.toArray(curr);
 
-        SkipNode node = new SkipNode(key);
-        for(int i = 0; i < numOfLevels; ++i){
-            node.next.add(tail);
-        }
         for(int i = numOfLevels - 1; i >= 0; --i){
             SkipNode temp = curr[i];
             while(temp != tail && temp.next.size() > i && key > temp.next.get(i).key){
                 temp = temp.next.get(i);
             }
+            prev[i] = temp;
 
-            if(i < level){
-                node.next.set(i, temp.next.get(i));
+            if(i == 0){
+                // identical key --> do nothing
+                // in a real tree, replace value
+                if(temp.next.get(0).key == key) return;
+
+                SkipNode node = new SkipNode(key);
+                node.next.add(temp.next.get(i));
                 temp.next.set(i, node);
+                ++count;
+
+                for(int j = 1; j < level; ++j){
+                    node.next.add(prev[j].next.get(j));
+                    prev[j].next.set(j, node);
+                }
             }
         }
-        ++count;
     }
 
     @Override
