@@ -13,9 +13,9 @@ public class Main {
      */
     public static void main(String[] args) {
         //testBST();
-        //estBSTDelete();
-        //testAVLTreeRotations();
-        testAVLExample();
+        //testBSTDelete();
+        testAVLTreeRotations();
+        //testAVLExample();
         //testAVLTree();
         //testSkipList();
     }
@@ -68,9 +68,11 @@ public class Main {
         tree.insert(29);
         tree.insert(11);
         tree.insert(19);
-
-        //    tree.insert(13);
         tree.printTree();
+        System.out.println(tree.isBST());
+        tree.insert(13);
+        tree.printTree();
+        System.out.println(tree.isBST());
 
     }
 
@@ -80,41 +82,22 @@ public class Main {
         tree.insert(0);
         tree.insert(2);
         tree.printTree();
-        tree.rotateRight(1);
-        tree.printTree();
-        tree = new AVLTree();
-        tree.insert(1);
-        tree.insert(0);
-        tree.insert(2);
-        tree.printTree();
-        tree.rotateLeft(1);
-        tree.printTree();
     }
 
     static void testAVLTreeRotations(){
         AVLTree tree = new AVLTree();
-        for(int i = 0; i < 2; ++i){
-            tree.insert(i*3);
-            tree.insert(-i*3);
-        }
-        for(int i = 0; i < 2; ++i){
-            tree.insert(i*3 + 1);
-            tree.insert(-i*3 - 1);
+        for(int i = 100; i > 90; --i){
+            tree.insert(i);
         }
         tree.printTree();
-        tree.rotateRight(0);
         System.out.println(tree.isBST());
-        tree.printTree();
-        tree.rotateLeft(0);
-        System.out.println(tree.isBST());
-        tree.printTree();
 
         tree = new AVLTree();
-        tree.insert(0);
-        tree.insert(1);
+        for(int i = 0; i < 10; ++i){
+            tree.insert(i);
+        }
         tree.printTree();
-        tree.rotateLeft(0);
-        tree.printTree();
+        System.out.println(tree.isBST());
     }
 
     static void testBST(){

@@ -1,5 +1,6 @@
 package binary_trees;
 
+import binary_trees.nodes.AVLNode;
 import binary_trees.nodes.RankNode;
 import binary_trees.nodes.TreeNode;
 
@@ -7,53 +8,58 @@ import java.util.ArrayList;
 
 public class AVLTree extends AbstractBalancedBinaryTree{
 
-    ArrayList<RankNode> parents;
+    private ArrayList<AVLNode> parents;
 
     @Override
     public TreeNode search(double key) {
         TreeNode node = root;
-        parent = root;
+        parents = new ArrayList<>();
         while(node != null){
-            if(key < node.key){
-                parent = node;
-                node = node.left;
-                parents.add((RankNode)parent);
-            }else if(key >  node.key){
-                parent = node;
-                node = node.right;
-                parents.add((RankNode)parent);
-            }else{
+            if(key == node.key){
                 return node;
+            }
+
+            parents.add((AVLNode)node);
+            if(key < node.key){
+                node = node.left;
+            }else{
+                node = node.right;
             }
         }
         return null;
     }
 
     @Override
-    public void create(){
-        super.create();
-        parents = new ArrayList<>();
-    }
-
-    @Override
     public void insert(double key) {
         if(root == null){
-            root = new RankNode(key);
+            root = new AVLNode(key);
             return;
         }
+
         if(search(key) == null){
-            int rank = 0;
+            AVLNode parent = parents.get(parents.size() - 1);
             if(key < parent.key){
-                parent.left = new RankNode(key);
-                if(parent.right != null) rank = ((RankNode)parent.right).rank;
+                parent.left = new AVLNode(key);
             }else{
-                parent.right = new RankNode(key);
-                if(parent.left != null) rank = ((RankNode)parent.left).rank;
+                parent.right = new AVLNode(key);
             }
-            ((RankNode)parent).rank = rank + 1;
-            for(RankNode node : parents){
-                node.rank = getRank(node) + 1;
+
+            parent.updateRank();
+            for(int i = parents.size() - 1; i >= 0; --i){
+                AVLNode node = parents.get(i);
+                node.updateRank();
+                double needRotation = node.needRotation();
+
+                if(needRotation > 1){
+                    if(i == 0) rotate(node, (RankNode)root, false);
+                    else rotate(node, parents.get(i - 1), false);
+                }
+                else if(needRotation < -1){
+                    if(i == 0) rotate(node, (RankNode)root, true);
+                    else rotate(node, parents.get(i - 1), true);
+                }
             }
+
         }
     }
 
@@ -62,10 +68,15 @@ public class AVLTree extends AbstractBalancedBinaryTree{
 
     }
 
-    private int getRank(RankNode node){
-        if(node.left == null && node.right == null) return 0;
-        if(node.left == null) return ((RankNode)node.right).rank;
-        if(node.right == null) return ((RankNode)node.left).rank;
-        return Math.max(((RankNode)node.right).rank, ((RankNode)node.left).rank);
+    void rotate(RankNode node, RankNode nodeParent, boolean isRight){
+        if(isRight) super.rotateRight(node, nodeParent);
+        else super.rotateLeft(node, nodeParent);
+        updateNodes((AVLNode)node, (AVLNode)nodeParent);
     }
+
+    private void updateNodes(AVLNode node, AVLNode nodeParent){
+        nodeParent.updateRank();
+        node.updateRank();
+    }
+
 }

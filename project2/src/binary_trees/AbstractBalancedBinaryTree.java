@@ -1,5 +1,6 @@
 package binary_trees;
 
+import binary_trees.nodes.AVLNode;
 import binary_trees.nodes.RankNode;
 
 /*
@@ -7,31 +8,30 @@ import binary_trees.nodes.RankNode;
     Contains the rotation methods
     Contains TreeNode with rank --> for AVL --> height
  */
-public abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
+abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
 
-      public void rotateRight(double key){
-        RankNode node = (RankNode) search(key);
-        setNode((RankNode) node.left, node);
+    void rotateRight(RankNode node, RankNode nodeParent){
+        setNode((RankNode) node.left, node, nodeParent);
         RankNode temp = (RankNode) node.left.right;
         node.left.right = node;
         node.left = temp;
     }
 
-    public void rotateLeft(double key){
-        RankNode node = (RankNode) search(key);
-        setNode((RankNode) node.right, node);
+    public void rotateLeft(RankNode node, RankNode nodeParent){
+        setNode((RankNode) node.right, node, nodeParent);
         RankNode temp = (RankNode) node.right.left;
         node.right.left = node;
         node.right = temp;
+
     }
 
-    private void setNode(RankNode nodeToPivot, RankNode node){
+    private void setNode(RankNode nodeToPivot, RankNode node, RankNode nodeParent){
         if(node.equals(root)){
             root = nodeToPivot;
-        } else if(isRight(node)){
-            parent.right = nodeToPivot;
+        } else if(isRight(node, nodeParent)){
+            nodeParent.right = nodeToPivot;
         }else{
-            parent.left = nodeToPivot;
+            nodeParent.left = nodeToPivot;
         }
     }
 }

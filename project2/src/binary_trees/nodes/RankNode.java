@@ -1,7 +1,7 @@
 package binary_trees.nodes;
 
 public class RankNode extends TreeNode{
-    public int rank;
+    public double rank;
 
     public RankNode(double key){
         super(key);

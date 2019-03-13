@@ -25,14 +25,15 @@ public abstract class AbstractBinaryTree implements Tree{
         TreeNode node = root;
         parent = root;
         while(node != null){
-            if(key < node.key){
-                parent = node;
-                node = node.left;
-            }else if(key >  node.key){
-                parent = node;
-                node = node.right;
-            }else{
+            if(key == node.key){
                 return node;
+            }
+
+            parent = node;
+            if(key < node.key){
+                node = node.left;
+            }else{
+                node = node.right;
             }
         }
         return null;
@@ -40,6 +41,10 @@ public abstract class AbstractBinaryTree implements Tree{
 
     boolean isRight(TreeNode node){
         return parent.key < node.key;
+    }
+
+    boolean isRight(TreeNode node, TreeNode nodeParent){
+        return nodeParent.key < node.key;
     }
 
     /*
@@ -54,7 +59,7 @@ public abstract class AbstractBinaryTree implements Tree{
     private String printTree(TreeNode node){
         StringBuilder sb = new StringBuilder("{\"keys\": [");
         sb.append("\"" + (int)node.key);
-        if(node instanceof RankNode) sb.append(", " + ((RankNode) node).rank + "\"");
+        if(node instanceof RankNode) sb.append(", " + (int)((RankNode) node).rank + "\"");
         sb.append("]");
         if(node.left != null || node.right != null){
             sb.append(", \"children\": [");
@@ -80,7 +85,7 @@ public abstract class AbstractBinaryTree implements Tree{
                 Integer.MAX_VALUE);
     }
 
-    boolean isBSTUtil(TreeNode node, double min, double max) {
+    private boolean isBSTUtil(TreeNode node, double min, double max) {
         if (node == null)
             return true;
 
