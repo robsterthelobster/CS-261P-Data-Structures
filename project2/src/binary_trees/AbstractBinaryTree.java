@@ -28,14 +28,12 @@ public abstract class AbstractBinaryTree implements Tree{
             if(key < node.key){
                 parent = node;
                 node = node.left;
-
             }else if(key >  node.key){
                 parent = node;
                 node = node.right;
             }else{
                 return node;
             }
-
         }
         return null;
     }

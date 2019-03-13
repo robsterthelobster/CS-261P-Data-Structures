@@ -15,9 +15,9 @@ public class Main {
         //testBST();
         //estBSTDelete();
         //testAVLTreeRotations();
-        //testAVLExample();
+        testAVLExample();
         //testAVLTree();
-        testSkipList();
+        //testSkipList();
     }
 
     static void testSkipList(){
