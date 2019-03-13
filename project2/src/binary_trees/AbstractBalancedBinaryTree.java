@@ -1,5 +1,7 @@
 package binary_trees;
 
+import binary_trees.nodes.RankNode;
+
 /*
     Same as Binary tree, but self balances
     Contains the rotation methods
@@ -7,32 +9,23 @@ package binary_trees;
  */
 public abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
 
-    class AVLNode extends TreeNode{
-        int rank;
-
-        AVLNode(double key) {
-            super(key);
-            rank = 0;
-        }
-    }
-
-    public void rotateRight(double key){
-        AVLNode node = (AVLNode) search(key);
-        setNode((AVLNode) node.left, node);
-        AVLNode temp = (AVLNode) node.left.right;
+      public void rotateRight(double key){
+        RankNode node = (RankNode) search(key);
+        setNode((RankNode) node.left, node);
+        RankNode temp = (RankNode) node.left.right;
         node.left.right = node;
         node.left = temp;
     }
 
     public void rotateLeft(double key){
-        AVLNode node = (AVLNode) search(key);
-        setNode((AVLNode) node.right, node);
-        AVLNode temp = (AVLNode) node.right.left;
+        RankNode node = (RankNode) search(key);
+        setNode((RankNode) node.right, node);
+        RankNode temp = (RankNode) node.right.left;
         node.right.left = node;
         node.right = temp;
     }
 
-    private void setNode(AVLNode nodeToPivot, AVLNode node){
+    private void setNode(RankNode nodeToPivot, RankNode node){
         if(node.equals(root)){
             root = nodeToPivot;
         } else if(isRight(node)){

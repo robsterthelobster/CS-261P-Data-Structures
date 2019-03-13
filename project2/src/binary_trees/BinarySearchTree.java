@@ -1,5 +1,7 @@
 package binary_trees;
 
+import binary_trees.nodes.TreeNode;
+
 public class BinarySearchTree extends AbstractBinaryTree {
 
     @Override

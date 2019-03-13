@@ -1,4 +1,5 @@
 import binary_trees.*;
+import binary_trees.nodes.Node;
 
 import java.util.Random;
 
@@ -8,14 +9,13 @@ public class Main {
         1. Standard BST -- Tree
         2. AVL tree     -- Tree
         3. Treap        -- Tree
-        4. Skip-list    -- Not a tree
+        4. Skip-list    -- "Tree"
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("TREEEEEEEEES");
         //testBST();
         //estBSTDelete();
         //testAVLTreeRotations();
+        //testAVLExample();
         //testAVLTree();
         testSkipList();
     }
@@ -58,6 +58,22 @@ public class Main {
         else System.out.println(key + ": " + node.key);
     }
 
+    static void testAVLExample(){
+        AVLTree tree = new AVLTree();
+        tree.insert(5);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(23);
+        tree.insert(17);
+        tree.insert(29);
+        tree.insert(11);
+        tree.insert(19);
+
+        //    tree.insert(13);
+        tree.printTree();
+
+    }
+
     static void testAVLTree(){
         AVLTree tree = new AVLTree();
         tree.insert(1);
@@ -74,6 +90,7 @@ public class Main {
         tree.rotateLeft(1);
         tree.printTree();
     }
+
     static void testAVLTreeRotations(){
         AVLTree tree = new AVLTree();
         for(int i = 0; i < 2; ++i){
@@ -86,6 +103,15 @@ public class Main {
         }
         tree.printTree();
         tree.rotateRight(0);
+        System.out.println(tree.isBST());
+        tree.printTree();
+        tree.rotateLeft(0);
+        System.out.println(tree.isBST());
+        tree.printTree();
+
+        tree = new AVLTree();
+        tree.insert(0);
+        tree.insert(1);
         tree.printTree();
         tree.rotateLeft(0);
         tree.printTree();

@@ -1,19 +1,21 @@
 package binary_trees;
 
+import binary_trees.nodes.RankNode;
+
 public class AVLTree extends AbstractBalancedBinaryTree{
 
     @Override
     public void insert(double key) {
         if(root == null){
-            root = new AVLNode(key);
+            root = new RankNode(key);
             return;
         }
 
         if(search(key) == null){
             if(key < parent.key){
-                parent.left = new AVLNode(key);
+                parent.left = new RankNode(key);
             }else{
-                parent.right = new AVLNode(key);
+                parent.right = new RankNode(key);
             }
         }
     }

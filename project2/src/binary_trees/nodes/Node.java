@@ -1,4 +1,4 @@
-package binary_trees;
+package binary_trees.nodes;
 
 public class Node {
     public double key;
@@ -13,7 +13,7 @@ public class Node {
                 ((TreeNode) o).key == this.key;
     }
 
-    void copyNode(TreeNode node){
+    public void copyNode(TreeNode node){
         this.key = node.key;
     }
 }

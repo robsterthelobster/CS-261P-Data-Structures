@@ -1,18 +1,12 @@
 package binary_trees;
 
+import binary_trees.nodes.Node;
+import binary_trees.nodes.SkipNode;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class SkipList implements Tree{
-
-    class SkipNode extends Node{
-        ArrayList<SkipNode> next;
-
-        SkipNode(double key) {
-            super(key);
-            next = new ArrayList<>();
-        }
-    }
 
     private SkipNode head;
     private SkipNode tail;
@@ -101,7 +95,13 @@ public class SkipList implements Tree{
             if(nodes.get(i).key == key){
                 nodes.set(i, nodes.get(i).next.get(i));
             }
+
+            if(heads.get(i).next.get(i) == tail) {
+                heads.remove(i);
+                --numOfLevels;
+            }
         }
+        --count;
     }
 
     private int selectRandomLevel(){

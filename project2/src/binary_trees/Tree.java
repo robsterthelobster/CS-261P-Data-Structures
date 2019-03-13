@@ -1,5 +1,7 @@
 package binary_trees;
 
+import binary_trees.nodes.Node;
+
 public interface Tree {
     void create();
     Node search(double key);

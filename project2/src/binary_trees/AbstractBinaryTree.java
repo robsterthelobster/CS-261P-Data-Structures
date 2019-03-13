@@ -1,5 +1,8 @@
 package binary_trees;
 
+import binary_trees.nodes.RankNode;
+import binary_trees.nodes.TreeNode;
+
 public abstract class AbstractBinaryTree implements Tree{
 
     /*  so I can reuse search code
@@ -25,12 +28,14 @@ public abstract class AbstractBinaryTree implements Tree{
             if(key < node.key){
                 parent = node;
                 node = node.left;
+
             }else if(key >  node.key){
                 parent = node;
                 node = node.right;
             }else{
                 return node;
             }
+
         }
         return null;
     }
@@ -50,7 +55,8 @@ public abstract class AbstractBinaryTree implements Tree{
 
     private String printTree(TreeNode node){
         StringBuilder sb = new StringBuilder("{\"keys\": [");
-        sb.append(node.key);
+        sb.append("\"" + (int)node.key);
+        if(node instanceof RankNode) sb.append(", " + ((RankNode) node).rank + "\"");
         sb.append("]");
         if(node.left != null || node.right != null){
             sb.append(", \"children\": [");
