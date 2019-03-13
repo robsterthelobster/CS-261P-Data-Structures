@@ -59,8 +59,8 @@ public abstract class AbstractBinaryTree implements Tree{
     private String printTree(TreeNode node){
         StringBuilder sb = new StringBuilder("{\"keys\": [");
         sb.append("\"" + (int)node.key);
-        if(node instanceof RankNode) sb.append(", " + (int)((RankNode) node).rank + "\"");
-        sb.append("]");
+        if(node instanceof RankNode) sb.append(", " + (int)((RankNode) node).rank);
+        sb.append("\"]");
         if(node.left != null || node.right != null){
             sb.append(", \"children\": [");
             if(node.left != null){

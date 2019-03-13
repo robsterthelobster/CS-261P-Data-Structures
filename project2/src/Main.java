@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args) {
         //testBST();
         //testBSTDelete();
-        testAVLTreeRotations();
-        //testAVLExample();
+//        testAVLTreeRotations();
+        testAVLExample();
         //testAVLTree();
         //testSkipList();
     }

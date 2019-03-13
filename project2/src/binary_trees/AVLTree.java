@@ -14,6 +14,7 @@ public class AVLTree extends AbstractBalancedBinaryTree{
     public TreeNode search(double key) {
         TreeNode node = root;
         parents = new ArrayList<>();
+        parents.add((AVLNode)root);
         while(node != null){
             if(key == node.key){
                 return node;
@@ -51,12 +52,10 @@ public class AVLTree extends AbstractBalancedBinaryTree{
                 double needRotation = node.needRotation();
 
                 if(needRotation > 1){
-                    if(i == 0) rotate(node, (RankNode)root, false);
-                    else rotate(node, parents.get(i - 1), false);
+                    rotate(node, parents.get(i - 1), false);
                 }
                 else if(needRotation < -1){
-                    if(i == 0) rotate(node, (RankNode)root, true);
-                    else rotate(node, parents.get(i - 1), true);
+                    rotate(node, parents.get(i - 1), true);
                 }
             }
 

@@ -14,6 +14,7 @@ public class AVLNode extends RankNode{
     }
 
     public double needRotation(){
+        if(left == null && right == null) return 0;
         if(left == null) return ((RankNode)right).rank + 1;
         else if(right == null) return -1 - ((RankNode)left).rank;
         else{

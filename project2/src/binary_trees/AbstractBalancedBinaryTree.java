@@ -1,6 +1,5 @@
 package binary_trees;
 
-import binary_trees.nodes.AVLNode;
 import binary_trees.nodes.RankNode;
 
 /*
@@ -17,12 +16,11 @@ abstract class AbstractBalancedBinaryTree extends AbstractBinaryTree{
         node.left = temp;
     }
 
-    public void rotateLeft(RankNode node, RankNode nodeParent){
+    void rotateLeft(RankNode node, RankNode nodeParent){
         setNode((RankNode) node.right, node, nodeParent);
         RankNode temp = (RankNode) node.right.left;
         node.right.left = node;
         node.right = temp;
-
     }
 
     private void setNode(RankNode nodeToPivot, RankNode node, RankNode nodeParent){
