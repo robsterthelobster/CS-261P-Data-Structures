@@ -13,7 +13,6 @@ public class SkipList implements Tree{
     private ArrayList<SkipNode> heads;
     private int numOfLevels;
     private Random random;
-    private int count;
     private SkipNode[] prev;
 
     public SkipList(){
@@ -29,7 +28,6 @@ public class SkipList implements Tree{
         head.next.add(tail);
         heads.add(head);
         numOfLevels = 1;
-        count = 0;
     }
 
     @Override
@@ -55,7 +53,7 @@ public class SkipList implements Tree{
     @Override
     public void insert(double key) {
         SkipNode node = new SkipNode(key);
-        if(count == 0){
+        if(heads.get(0).next.get(0) == tail){
             addNode(node, head);
             return;
         }
@@ -82,7 +80,6 @@ public class SkipList implements Tree{
     private void addNode(SkipNode add, SkipNode prev){
         add.next.add(prev.next.get(0));
         prev.next.set(0, add);
-        ++count;
     }
 
     @Override
@@ -101,7 +98,6 @@ public class SkipList implements Tree{
                 --numOfLevels;
             }
         }
-        --count;
     }
 
     private int selectRandomLevel(){

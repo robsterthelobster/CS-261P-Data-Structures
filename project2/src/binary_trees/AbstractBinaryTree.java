@@ -62,6 +62,7 @@ public abstract class AbstractBinaryTree implements Tree {
         if (root == null) {
             return;
         }
+
         TreeNode node = search(key);
         if (node == null) return;
 

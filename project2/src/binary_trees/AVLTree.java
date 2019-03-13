@@ -12,15 +12,15 @@ public class AVLTree extends AbstractBalancedBinaryTree{
             return;
         }
 
-        if(search(key) == null){
-            AVLNode parent = (AVLNode) parents.get(parents.size() - 1);
-            if(key < parent.key){
-                parent.left = new AVLNode(key);
-            }else{
-                parent.right = new AVLNode(key);
-            }
-            updateHeights();
+        if(search(key) != null) return;
+
+        AVLNode parent = (AVLNode) parents.get(parents.size() - 1);
+        if(key < parent.key){
+            parent.left = new AVLNode(key);
+        }else{
+            parent.right = new AVLNode(key);
         }
+        updateHeights();
     }
 
     @Override

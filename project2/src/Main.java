@@ -14,23 +14,43 @@ public class Main {
     public static void main(String[] args) {
 //        testBST();
 //        testBSTDelete();
-        testAVLTreeRotations();
+//        testAVLTreeRotations();
 //        testAVLExample();
 //        testAVLTree();
 //        testSkipList();
-//        testTreap();
+        testTreap();
     }
 
     static void testTreap(){
         Treap treap = new Treap();
-        treap.insert(0);
+        for(int i = 100; i > 90; --i){
+            treap.insert(i);
+        }
         debugTree(treap);
+
+        treap = new Treap();
+        for(int i = 0; i < 10; ++i){
+            treap.insert(i);
+        }
+        debugTree(treap);
+
+        treap = new Treap();
+        Random random = new Random(555);
+        for(int i = 0; i < 5; ++i){
+            int key = random.nextInt(100);
+            System.out.print(key + " ");
+            treap.insert(key);
+        }
+        System.out.println();
+        debugTree(treap);
+
+        delete(treap, 73);
     }
 
     static void testSkipList(){
         SkipList skipList = new SkipList();
-        Random random = new Random(555);
-        for(int i = 0; i < 30; ++i){
+        Random random = new Random(333);
+        for(int i = 0; i < 15; ++i){
             int key = random.nextInt(100);
             System.out.print(key + " ");
             skipList.insert(key);
@@ -40,12 +60,16 @@ public class Main {
 
         skipList.printTree();
 
-        skipList.delete(89);
-        System.out.println("Delete 89");
+        skipList.delete(2);
+        System.out.println("Delete 2");
         skipList.printTree();
 
-        skipList.delete(21);
-        System.out.println("Delete 21");
+        skipList.delete(3);
+        System.out.println("Delete 3");
+        skipList.printTree();
+
+        skipList.delete(85);
+        System.out.println("Delete 85");
         skipList.printTree();
 
 //        random = new Random(555);
@@ -163,5 +187,6 @@ public class Main {
     static void debugTree(AbstractBinaryTree tree){
         tree.printTree();
         System.out.println("isBst: " + tree.isBST());
+        System.out.println();
     }
 }

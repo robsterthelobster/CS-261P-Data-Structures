@@ -11,13 +11,13 @@ public class BinarySearchTree extends AbstractBinaryTree {
             return;
         }
 
-        if(search(key) == null){
-            TreeNode parent = parents.get(parents.size() - 1);
-            if(key < parent.key){
-                parent.left = new TreeNode(key);
-            }else{
-                parent.right = new TreeNode(key);
-            }
+        if(search(key) != null) return;
+
+        TreeNode parent = parents.get(parents.size() - 1);
+        if(key < parent.key){
+            parent.left = new TreeNode(key);
+        }else{
+            parent.right = new TreeNode(key);
         }
     }
 }
