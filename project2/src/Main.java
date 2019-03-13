@@ -18,7 +18,8 @@ public class Main {
 //        testAVLExample();
 //        testAVLTree();
 //        testSkipList();
-        testTreap();
+//        testTreap();
+
     }
 
     static void testTreap(){
@@ -36,7 +37,7 @@ public class Main {
 
         treap = new Treap();
         Random random = new Random(555);
-        for(int i = 0; i < 5; ++i){
+        for(int i = 0; i < 10; ++i){
             int key = random.nextInt(100);
             System.out.print(key + " ");
             treap.insert(key);
@@ -45,6 +46,7 @@ public class Main {
         debugTree(treap);
 
         delete(treap, 73);
+        delete(treap, 38);
     }
 
     static void testSkipList(){
@@ -164,16 +166,11 @@ public class Main {
 
     static void insert(AbstractBinaryTree tree){
         //        tree.insert(0);
-        tree.insert(2);
-        tree.insert(4);
-        tree.insert(3);
-
-        tree.insert(7);
-        tree.insert(-2);
-        tree.insert(1);
-        tree.insert(-6);
-        tree.insert(-1);
-        tree.printTree();
+        Random random = new Random();
+        for(int i = 0; i < 1000; ++i){
+            tree.insert(random.nextInt());
+        }
+        debugTree(tree);
     }
 
     static void delete(AbstractBinaryTree tree, int key){

@@ -60,6 +60,7 @@ public class Treap extends AbstractBalancedBinaryTree{
                 parent = pivotNodes(node, parent, true);
             }
         }
+
         if(isRight(node, parent)){
             parent.right = null;
         }else{
