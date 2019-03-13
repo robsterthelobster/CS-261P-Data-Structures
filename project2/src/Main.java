@@ -12,12 +12,12 @@ public class Main {
         4. Skip-list    -- "Tree"
      */
     public static void main(String[] args) {
-        //testBST();
-        //testBSTDelete();
-//        testAVLTreeRotations();
-        testAVLExample();
-        //testAVLTree();
-        //testSkipList();
+//        testBST();
+//        testBSTDelete();
+        testAVLTreeRotations();
+//        testAVLExample();
+//        testAVLTree();
+//        testSkipList();
     }
 
     static void testSkipList(){
@@ -40,7 +40,6 @@ public class Main {
         skipList.delete(21);
         System.out.println("Delete 21");
         skipList.printTree();
-
 
 //        random = new Random(555);
 //        for(int i = 0; i < 15; ++i){
@@ -68,12 +67,9 @@ public class Main {
         tree.insert(29);
         tree.insert(11);
         tree.insert(19);
-        tree.printTree();
-        System.out.println(tree.isBST());
+        debugTree(tree);
         tree.insert(13);
-        tree.printTree();
-        System.out.println(tree.isBST());
-
+        debugTree(tree);
     }
 
     static void testAVLTree(){
@@ -89,15 +85,16 @@ public class Main {
         for(int i = 100; i > 90; --i){
             tree.insert(i);
         }
-        tree.printTree();
-        System.out.println(tree.isBST());
+        debugTree(tree);
 
         tree = new AVLTree();
         for(int i = 0; i < 10; ++i){
             tree.insert(i);
         }
-        tree.printTree();
-        System.out.println(tree.isBST());
+        debugTree(tree);
+
+        delete(tree, 7);
+        delete(tree, 9);
     }
 
     static void testBST(){
@@ -154,6 +151,10 @@ public class Main {
         tree.delete(key);
         System.out.println("IsBST after delete: " + tree.isBST());
         tree.printTree();
+    }
 
+    static void debugTree(AbstractBinaryTree tree){
+        tree.printTree();
+        System.out.println("isBst: " + tree.isBST());
     }
 }

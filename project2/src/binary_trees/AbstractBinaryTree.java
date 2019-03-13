@@ -3,47 +3,87 @@ package binary_trees;
 import binary_trees.nodes.RankNode;
 import binary_trees.nodes.TreeNode;
 
-public abstract class AbstractBinaryTree implements Tree{
+import java.util.ArrayList;
+
+public abstract class AbstractBinaryTree implements Tree {
 
     /*  so I can reuse search code
         have to call search before using parent
     */
-    TreeNode parent;
     TreeNode root;
+    ArrayList<TreeNode> parents;
 
-    AbstractBinaryTree(){
+    AbstractBinaryTree() {
         this.create();
     }
 
     @Override
-    public void create(){
+    public void create() {
         root = null;
     }
 
     @Override
     public TreeNode search(double key) {
         TreeNode node = root;
-        parent = root;
-        while(node != null){
-            if(key == node.key){
+        parents = new ArrayList<>();
+        parents.add(root);
+        while (node != null) {
+            if (key == node.key) {
                 return node;
             }
 
-            parent = node;
-            if(key < node.key){
+            parents.add(node);
+            if (key < node.key) {
                 node = node.left;
-            }else{
+            } else {
                 node = node.right;
             }
         }
         return null;
     }
 
-    boolean isRight(TreeNode node){
-        return parent.key < node.key;
+    @Override
+    public void delete(double key) {
+        if (root == null) {
+            return;
+        }
+        TreeNode node = search(key);
+        if (node == null) return;
+
+        TreeNode parent = parents.get(parents.size() - 1);
+        if (node.left == null || node.right == null) {
+            TreeNode temp;
+            if (node.left == null) {
+                temp = node.right;
+            } else {
+                temp = node.left;
+            }
+
+            if (node.equals(root)) {
+                root = temp;
+            } else if (isRight(node, parent)) {
+                parent.right = temp;
+            } else {
+                parent.left = temp;
+            }
+        } else {
+            TreeNode successor = node.right;
+
+            parent = node;
+            while (successor.left != null) {
+                parent = successor;
+                successor = successor.left;
+            }
+            node.copyNode(successor);
+            if (parent.equals(node)) {
+                parent.right = parent.right.right;
+            } else {
+                parent.left = parent.left.right;
+            }
+        }
     }
 
-    boolean isRight(TreeNode node, TreeNode nodeParent){
+    boolean isRight(TreeNode node, TreeNode nodeParent) {
         return nodeParent.key < node.key;
     }
 
@@ -51,24 +91,24 @@ public abstract class AbstractBinaryTree implements Tree{
         DEBUG helper method
         JSON format plug in: http://ysangkok.github.io/js-clrs-btree/btree.html
      */
-    public void printTree(){
+    public void printTree() {
         System.out.println(printTree(root));
         System.out.println();
     }
 
-    private String printTree(TreeNode node){
+    private String printTree(TreeNode node) {
         StringBuilder sb = new StringBuilder("{\"keys\": [");
-        sb.append("\"" + (int)node.key);
-        if(node instanceof RankNode) sb.append(", " + (int)((RankNode) node).rank);
+        sb.append("\"").append((int) node.key);
+        if (node instanceof RankNode) sb.append(", ").append((int) ((RankNode) node).rank);
         sb.append("\"]");
-        if(node.left != null || node.right != null){
+        if (node.left != null || node.right != null) {
             sb.append(", \"children\": [");
-            if(node.left != null){
+            if (node.left != null) {
                 sb.append(printTree(node.left));
-            }else{
+            } else {
                 sb.append("{\"keys\": [null]}");
             }
-            if(node.right != null){
+            if (node.right != null) {
                 sb.append(", ");
                 sb.append(printTree(node.right));
             }
@@ -80,7 +120,7 @@ public abstract class AbstractBinaryTree implements Tree{
 
     // talked about in discussion
     // taken from https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
-    public boolean isBST()  {
+    public boolean isBST() {
         return isBSTUtil(root, Integer.MIN_VALUE,
                 Integer.MAX_VALUE);
     }

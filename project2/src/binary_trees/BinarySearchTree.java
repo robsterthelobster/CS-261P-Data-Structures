@@ -12,50 +12,11 @@ public class BinarySearchTree extends AbstractBinaryTree {
         }
 
         if(search(key) == null){
+            TreeNode parent = parents.get(parents.size() - 1);
             if(key < parent.key){
                 parent.left = new TreeNode(key);
             }else{
                 parent.right = new TreeNode(key);
-            }
-        }
-    }
-
-    @Override
-    public void delete(double key) {
-        if(root == null){
-            return;
-        }
-        TreeNode node = search(key);
-        if(node == null) return;
-
-        if(node.left == null || node.right == null){
-            TreeNode temp;
-            if(node.left == null){
-                temp = node.right;
-            }else{
-                temp = node.left;
-            }
-
-            if (node.equals(root)) {
-                root = temp;
-            } else if (isRight(node)) {
-                parent.right = temp;
-            } else {
-                parent.left = temp;
-            }
-        } else {
-            TreeNode successor = node.right;
-
-            parent = node;
-            while (successor.left != null) {
-                parent = successor;
-                successor = successor.left;
-            }
-            node.copyNode(successor);
-            if (parent.equals(node)) {
-                parent.right = parent.right.right;
-            } else {
-                parent.left = parent.left.right;
             }
         }
     }

@@ -2,33 +2,8 @@ package binary_trees;
 
 import binary_trees.nodes.AVLNode;
 import binary_trees.nodes.RankNode;
-import binary_trees.nodes.TreeNode;
-
-import java.util.ArrayList;
 
 public class AVLTree extends AbstractBalancedBinaryTree{
-
-    private ArrayList<AVLNode> parents;
-
-    @Override
-    public TreeNode search(double key) {
-        TreeNode node = root;
-        parents = new ArrayList<>();
-        parents.add((AVLNode)root);
-        while(node != null){
-            if(key == node.key){
-                return node;
-            }
-
-            parents.add((AVLNode)node);
-            if(key < node.key){
-                node = node.left;
-            }else{
-                node = node.right;
-            }
-        }
-        return null;
-    }
 
     @Override
     public void insert(double key) {
@@ -38,36 +13,39 @@ public class AVLTree extends AbstractBalancedBinaryTree{
         }
 
         if(search(key) == null){
-            AVLNode parent = parents.get(parents.size() - 1);
+            AVLNode parent = (AVLNode) parents.get(parents.size() - 1);
             if(key < parent.key){
                 parent.left = new AVLNode(key);
             }else{
                 parent.right = new AVLNode(key);
             }
 
-            parent.updateRank();
-            for(int i = parents.size() - 1; i >= 0; --i){
-                AVLNode node = parents.get(i);
-                node.updateRank();
-                double needRotation = node.needRotation();
-
-                if(needRotation > 1){
-                    rotate(node, parents.get(i - 1), false);
-                }
-                else if(needRotation < -1){
-                    rotate(node, parents.get(i - 1), true);
-                }
-            }
-
+            updateHeights();
         }
     }
 
     @Override
     public void delete(double key) {
-
+        super.delete(key);
+        updateHeights();
     }
 
-    void rotate(RankNode node, RankNode nodeParent, boolean isRight){
+    private void updateHeights(){
+        for(int i = parents.size() - 1; i >= 0; --i){
+            AVLNode node = (AVLNode) parents.get(i);
+            node.updateRank();
+            double needRotation = node.needRotation();
+
+            if(needRotation > 1){
+                rotate(node, (RankNode) parents.get(i - 1), false);
+            }
+            else if(needRotation < -1){
+                rotate(node, (RankNode) parents.get(i - 1), true);
+            }
+        }
+    }
+
+    private void rotate(RankNode node, RankNode nodeParent, boolean isRight){
         if(isRight) super.rotateRight(node, nodeParent);
         else super.rotateLeft(node, nodeParent);
         updateNodes((AVLNode)node, (AVLNode)nodeParent);
