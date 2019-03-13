@@ -8,7 +8,7 @@ public class RankNode extends TreeNode{
         this.rank = 0;
     }
 
-    public RankNode(double key, int rank) {
+    public RankNode(double key, double rank){
         super(key);
         this.rank = rank;
     }

@@ -5,6 +5,21 @@ import binary_trees.nodes.TreeNode;
 
 import java.util.ArrayList;
 
+/*
+    Pretty much the master class for this project.
+
+    Tons of reusable code in this abstract class
+    Some trees could be slimmed down a little, but a lot have shared logic
+    so this class contains that logic.
+
+    Notable functions: create, search, delete
+    Insert cannot be shared since I use different variations of Nodes for each
+    data structure (e.g. Binary Tree Node vs AVL Node)
+
+    Debug functions: isBst, printTree
+    Super helpful to see if my functions are working.
+
+ */
 public abstract class AbstractBinaryTree implements Tree {
 
     /*  so I can reuse search code
@@ -99,7 +114,7 @@ public abstract class AbstractBinaryTree implements Tree {
     private String printTree(TreeNode node) {
         StringBuilder sb = new StringBuilder("{\"keys\": [");
         sb.append("\"").append((int) node.key);
-        if (node instanceof RankNode) sb.append(", ").append((int) ((RankNode) node).rank);
+        if (node instanceof RankNode) sb.append(", ").append(((RankNode) node).rank);
         sb.append("\"]");
         if (node.left != null || node.right != null) {
             sb.append(", \"children\": [");

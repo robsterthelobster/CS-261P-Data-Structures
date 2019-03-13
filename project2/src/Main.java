@@ -18,6 +18,13 @@ public class Main {
 //        testAVLExample();
 //        testAVLTree();
 //        testSkipList();
+//        testTreap();
+    }
+
+    static void testTreap(){
+        Treap treap = new Treap();
+        treap.insert(0);
+        debugTree(treap);
     }
 
     static void testSkipList(){

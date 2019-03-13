@@ -19,7 +19,6 @@ public class AVLTree extends AbstractBalancedBinaryTree{
             }else{
                 parent.right = new AVLNode(key);
             }
-
             updateHeights();
         }
     }
