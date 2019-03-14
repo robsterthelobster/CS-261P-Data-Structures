@@ -1,6 +1,8 @@
 import binary_trees.*;
 import binary_trees.nodes.Node;
+import tests.*;
 
+import java.util.HashSet;
 import java.util.Random;
 
 public class Main {
@@ -19,34 +21,38 @@ public class Main {
 //        testAVLTree();
 //        testSkipList();
 //        testTreap();
-
+//        new TestCase0_3().bulkTests();
     }
 
     static void testTreap(){
         Treap treap = new Treap();
-        for(int i = 100; i > 90; --i){
-            treap.insert(i);
-        }
-        debugTree(treap);
-
-        treap = new Treap();
-        for(int i = 0; i < 10; ++i){
-            treap.insert(i);
-        }
-        debugTree(treap);
-
-        treap = new Treap();
+//        for(int i = 100; i > 90; --i){
+//            treap.insert(i);
+//        }
+//        debugTree(treap);
+//
+//        treap = new Treap();
+//        for(int i = 0; i < 10; ++i){
+//            treap.insert(i);
+//        }
+//        debugTree(treap);
+//
+//        treap = new Treap();
         Random random = new Random(555);
-        for(int i = 0; i < 10; ++i){
-            int key = random.nextInt(100);
-            System.out.print(key + " ");
+        HashSet<Integer> set = new HashSet<>();
+        for(int i = 0; i < 100; ++i){
+            int key = i;
+            set.add(key);
+            System.out.print(key + ", ");
             treap.insert(key);
         }
         System.out.println();
+        System.out.println(set.size());
+        System.out.println();
         debugTree(treap);
 
-        delete(treap, 73);
-        delete(treap, 38);
+//        delete(treap, 73);
+//        delete(treap, 38);
     }
 
     static void testSkipList(){
@@ -115,8 +121,10 @@ public class Main {
 
     static void testAVLTreeRotations(){
         AVLTree tree = new AVLTree();
+        Random random = new Random(333);
         for(int i = 100; i > 90; --i){
-            tree.insert(i);
+            tree.insert(random.nextInt(100));
+            debugTree(tree);
         }
         debugTree(tree);
 
@@ -167,7 +175,7 @@ public class Main {
     static void insert(AbstractBinaryTree tree){
         //        tree.insert(0);
         Random random = new Random();
-        for(int i = 0; i < 1000; ++i){
+        for(int i = 0; i < 10; ++i){
             tree.insert(random.nextInt());
         }
         debugTree(tree);

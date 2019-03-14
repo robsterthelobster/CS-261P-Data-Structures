@@ -32,14 +32,16 @@ public class Treap extends AbstractBalancedBinaryTree{
             parent.right = node;
         }
 
-        while(!node.equals(root) && node.rank > parent.rank){
-            RankNode temp = parent;
-            parent = (RankNode) parents.get(--parentIndex);
+        RankNode temp = node;
+        while(!node.equals(root) && node.rank > parent.rank && parentIndex > 0){
+
             if(isRight(node, parent)){
                 rotateLeft(temp, parent);
             }else{
                 rotateRight(temp, parent);
             }
+            temp = parent;
+            parent = (RankNode) parents.get(--parentIndex);
         }
     }
 

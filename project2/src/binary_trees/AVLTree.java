@@ -36,9 +36,11 @@ public class AVLTree extends AbstractBalancedBinaryTree{
             double needRotation = node.needRotation();
 
             if(needRotation > 1){
-                rotate(node, (RankNode) parents.get(i - 1), false);
+                if(i == 0) rotate(node, (RankNode) root, false);
+                else rotate(node, (RankNode) parents.get(i - 1), false);
             } else if(needRotation < -1){
-                rotate(node, (RankNode) parents.get(i - 1), true);
+                if(i == 0) rotate(node, (RankNode) root, true);
+                else rotate(node, (RankNode) parents.get(i - 1), true);
             }
         }
     }
