@@ -21,7 +21,7 @@ public class Main {
 //        testAVLTree();
 //        testSkipList();
 //        testTreap();
-//        new TestCase0_3().bulkTests();
+        new TestCase0_3().bulkTests();
     }
 
     static void testTreap(){
@@ -57,10 +57,10 @@ public class Main {
 
     static void testSkipList(){
         SkipList skipList = new SkipList();
-        Random random = new Random(333);
-        for(int i = 0; i < 15; ++i){
+        Random random = new Random(555);
+        for(int i = 0; i < 7; ++i){
             int key = random.nextInt(100);
-            System.out.print(key + " ");
+//            System.out.print(key + " ");
             skipList.insert(key);
         }
         System.out.println();
@@ -68,17 +68,19 @@ public class Main {
 
         skipList.printTree();
 
-        skipList.delete(2);
-        System.out.println("Delete 2");
-        skipList.printTree();
+        skipList.search(81);
 
-        skipList.delete(3);
-        System.out.println("Delete 3");
-        skipList.printTree();
-
-        skipList.delete(85);
-        System.out.println("Delete 85");
-        skipList.printTree();
+//        skipList.delete(2);
+//        System.out.println("Delete 2");
+//        skipList.printTree();
+//
+//        skipList.delete(3);
+//        System.out.println("Delete 3");
+//        skipList.printTree();
+//
+//        skipList.delete(85);
+//        System.out.println("Delete 85");
+//        skipList.printTree();
 
 //        random = new Random(555);
 //        for(int i = 0; i < 15; ++i){

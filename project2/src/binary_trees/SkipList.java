@@ -28,6 +28,7 @@ public class SkipList implements Tree{
         head.next.add(tail);
         heads.add(head);
         numOfLevels = 1;
+        prev = new SkipNode[30];
     }
 
     @Override
@@ -36,16 +37,19 @@ public class SkipList implements Tree{
     }
 
     private Node search(double key, boolean toBottom){
-        SkipNode[] curr = new SkipNode[numOfLevels];
-        heads.toArray(curr);
+        SkipNode temp = heads.get(numOfLevels - 1);
+        prev[numOfLevels - 1] = temp;
 
         for(int i = numOfLevels - 1; i >= 0; --i){
-            SkipNode temp = curr[i];
+
             while(temp != tail && temp.next.size() > i && key > temp.next.get(i).key){
                 temp = temp.next.get(i);
             }
             prev[i] = temp;
-            if(temp.next.get(i).key == key && (!toBottom || i == 0)) return temp.next.get(i);
+
+            if(temp.key == key && (!toBottom || i == 0)){
+                return temp.next.get(i);
+            }
         }
         return null;
     }
@@ -65,7 +69,7 @@ public class SkipList implements Tree{
             heads.add(head);
         }
 
-        prev = new SkipNode[numOfLevels];
+//        prev = new SkipNode[numOfLevels];
         SkipNode temp = (SkipNode) search(key);
         if(temp == null){
             addNode(node, prev[0]);
@@ -84,7 +88,7 @@ public class SkipList implements Tree{
 
     @Override
     public void delete(double key) {
-        prev = new SkipNode[numOfLevels];
+//        prev = new SkipNode[numOfLevels];
         if(search(key, true) == null) return;
 
         for(int i = numOfLevels - 1; i >= 0; --i){
