@@ -3,23 +3,12 @@ package tests;
 import binary_trees.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 abstract class TestCase {
-
-    int[] insertions = {
-            5000,
-            10000,
-            15000,
-            20000,
-            25000,
-//            30000,
-//            35000,
-//            40000,
-//            45000,
-//            50000
-    };
 
     long[] SEEDS;
     private long startTime;
@@ -42,8 +31,19 @@ abstract class TestCase {
         return nanoToSeconds(System.nanoTime() - startTime);
     }
 
-    abstract void writeToFile(double duration, TreeType type, int size);
-    abstract void writeFirstLine(String filename);
+    void writeToFile(double duration, TreeType type, int size) {
+        writeToFile(duration, type, size, filename);
+    }
+
+    void writeFirstLine(String name){
+        try {
+            PrintWriter printWriter = new PrintWriter(new FileWriter(name, true));
+            printWriter.printf("%s, %s, %s\n", "Type", "Insertions", "Time");
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private double nanoToSeconds(long nanotime){
         return (double) nanotime / 1E9;
@@ -71,7 +71,7 @@ abstract class TestCase {
         writeFirstLine(filename);
     }
 
-    void createHashTable(TreeType type){
+    void createTree(TreeType type){
         switch(type){
             case BST:
                 tree = new BinarySearchTree();
@@ -91,17 +91,13 @@ abstract class TestCase {
         }
     }
 
-    public void bulkTests(){
-        for(TreeType type : TreeType.values()){
-            for(int numOfInsertions : insertions){
-                int count = 0;
-                double duration = 0;
-                for(long seed : SEEDS){
-                    duration += runTest(type, seed, numOfInsertions);
-                    count++;
-                }
-                writeToFile(duration/count, type, numOfInsertions);
-            }
+    void writeToFile(double duration, TreeType type, int size, String name) {
+        try {
+            PrintWriter printWriter = new PrintWriter(new FileWriter(name, true));
+            printWriter.printf("%s, %d, %f\n", type.name(), size, duration);
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

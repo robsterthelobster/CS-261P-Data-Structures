@@ -21,11 +21,12 @@ public class Main {
 //        testAVLTree();
 //        testSkipList();
 //        testTreap();
-        new TestCase0_3().bulkTests();
+//        new TestCase0_3().bulkTests();
+//        new TestCase4().bulkTests();
+//        new TestCase5_6().bulkTests();
     }
 
     static void testTreap(){
-        Treap treap = new Treap();
 //        for(int i = 100; i > 90; --i){
 //            treap.insert(i);
 //        }
@@ -39,17 +40,20 @@ public class Main {
 //
 //        treap = new Treap();
         Random random = new Random(555);
-        HashSet<Integer> set = new HashSet<>();
-        for(int i = 0; i < 100; ++i){
-            int key = i;
-            set.add(key);
-            System.out.print(key + ", ");
-            treap.insert(key);
+        long start = System.nanoTime();
+        for(int j = 0; j < 10; ++j){
+            Treap treap = new Treap();
+            for(int i = 0; i < 25000; ++i){
+                treap.insert(i);
+            }
+            for(int i = 0; i < 25000; ++i){
+                treap.search(i);
+            }
         }
+
         System.out.println();
-        System.out.println(set.size());
-        System.out.println();
-        debugTree(treap);
+        System.out.println((System.nanoTime()-start)/1E9/10);
+//        debugTree(treap);
 
 //        delete(treap, 73);
 //        delete(treap, 38);

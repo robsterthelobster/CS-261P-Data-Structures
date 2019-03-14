@@ -2,9 +2,6 @@ package tests;
 
 import binary_trees.TreeType;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Random;
 
 // 0 delete
@@ -12,6 +9,19 @@ import java.util.Random;
 // 2 insert
 // 3 search
 public class TestCase0_3 extends TestCase{
+
+    private int[] insertions = {
+            5000,
+            10000,
+            15000,
+            20000,
+            25000,
+            30000,
+            35000,
+            40000,
+            45000,
+            50000
+    };
 
     private double duration1, duration2, duration3;
     private String test1 = "TestCase1.csv";
@@ -28,7 +38,7 @@ public class TestCase0_3 extends TestCase{
     @Override
     double runTest(TreeType type, long seed, int size) {
         startTest();
-        createHashTable(type);
+        createTree(type);
         duration1 += finishTest();
 
         Random random = new Random(seed);
@@ -53,33 +63,6 @@ public class TestCase0_3 extends TestCase{
         return finishTest();
     }
 
-    @Override
-    void writeFirstLine(String name) {
-        try {
-            PrintWriter printWriter = new PrintWriter(new FileWriter(name, true));
-            printWriter.printf("%s, %s, %s\n", "Type", "Insertions", "Time");
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    void writeToFile(double duration, TreeType type, int size) {
-       writeToFile(duration, type, size, filename);
-    }
-
-    private void writeToFile(double duration, TreeType type, int size, String name) {
-        try {
-            PrintWriter printWriter = new PrintWriter(new FileWriter(name, true));
-            printWriter.printf("%s, %d, %f\n", type.name(), size, duration);
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void bulkTests() {
         for (TreeType type : TreeType.values()) {
             for (int numOfInsertions : insertions) {
