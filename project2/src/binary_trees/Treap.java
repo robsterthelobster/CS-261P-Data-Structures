@@ -11,7 +11,7 @@ public class Treap extends AbstractBalancedBinaryTree{
     @Override
     public void create(){
         super.create();
-        random = new Random(333);
+        random = new Random();
     }
 
     @Override
@@ -32,16 +32,14 @@ public class Treap extends AbstractBalancedBinaryTree{
             parent.right = node;
         }
 
-        RankNode temp = node;
         while(!node.equals(root) && node.rank > parent.rank && parentIndex > 0){
-
-            if(isRight(node, parent)){
+            RankNode temp = parent;
+            parent = (RankNode) parents.get(--parentIndex);
+            if(isRight(node, temp)){
                 rotateLeft(temp, parent);
             }else{
                 rotateRight(temp, parent);
             }
-            temp = parent;
-            parent = (RankNode) parents.get(--parentIndex);
         }
     }
 

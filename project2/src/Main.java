@@ -1,6 +1,6 @@
 import binary_trees.*;
 import binary_trees.nodes.Node;
-import tests.TestCase7;
+import tests.*;
 
 import java.util.Random;
 
@@ -19,11 +19,16 @@ public class Main {
 //        testAVLExample();
 //        testAVLTree();
 //        testSkipList();
-//        testTreap();
+        testTreap();
 //        new TestCase0_3().bulkTests();
 //        new TestCase4().bulkTests();
 //        new TestCase5_6().bulkTests();
-        new TestCase7().bulkTests();
+//        new TestCase7().bulkTests();
+//        AbstractBinaryTree tree = new Treap();
+//        int size = 6;
+//        tree.insert(0);
+//        insert(tree, (int) Math.pow(2, size - 2), (int) Math.pow(2, size - 3));
+//        debugTree(tree);
     }
 
     static void insert(AbstractBinaryTree tree, int key, int diff){
@@ -50,19 +55,30 @@ public class Main {
 //
 //        treap = new Treap();
         Random random = new Random(555);
+        Treap treap = new Treap();
         long start = System.nanoTime();
-        for(int j = 0; j < 10; ++j){
-            Treap treap = new Treap();
-            for(int i = 0; i < 25000; ++i){
-                treap.insert(i);
+        for(int j = 0; j < 1; ++j) {
+            treap = new Treap();
+            random = new Random(333);
+            for (int i = 0; i < 25; ++i) {
+                treap.insert(random.nextInt());
             }
-            for(int i = 0; i < 25000; ++i){
-                treap.search(i);
+        }
+        System.out.println();
+        System.out.println((System.nanoTime()-start)/1E9/1);
+
+        debugTree(treap);
+
+        start = System.nanoTime();
+        for(int j = 0; j < 1; ++j){
+            random = new Random(333);
+            for(int i = 0; i < 25; ++i){
+                treap.search(random.nextInt());
             }
         }
 
         System.out.println();
-        System.out.println((System.nanoTime()-start)/1E9/10);
+        System.out.println((System.nanoTime()-start)/1E9/1);
 //        debugTree(treap);
 
 //        delete(treap, 73);

@@ -5,9 +5,7 @@ import binary_trees.TreeType;
 // Perfectly balanced, as all things should be
 public class TestCase7 extends TestCase{
 
-    private int[] insertions = {
-            10, 11, 12, 13, 14
-    };
+    private final int max_level = 13;
 
     public TestCase7() {
         super(7);
@@ -17,10 +15,18 @@ public class TestCase7 extends TestCase{
     double runTest(TreeType type, long seed, int size) {
         createTree(type);
 
+        int total = (int) Math.pow(2, size) - 1;
+        int start = (int) Math.pow(2, size - 2);
+        int diff = (int) Math.pow(2, size - 3);
         startTest();
 
         tree.insert(0);
-        insert((int) Math.pow(2, size - 2), (int) Math.pow(2, size - 3));
+        insert(start, diff);
+
+        for(int i = 0; i < total/2; ++i){
+            tree.search(i);
+            tree.search(-i);
+        }
 
         return finishTest();
     }
@@ -28,9 +34,11 @@ public class TestCase7 extends TestCase{
     public void bulkTests() {
         for (TreeType type : TreeType.values()) {
             double duration = 0;
-            for (int insertion : insertions) {
-                duration += runTest(type, 0, insertion);
-                writeToFile(duration, type, insertion);
+            for (int insertion = 3; insertion < max_level; ++insertion) {
+                for(int i = 0; i < 5; ++i){
+                    duration += runTest(type, 0, insertion);
+                }
+                writeToFile(duration/5, type, insertion);
             }
         }
     }

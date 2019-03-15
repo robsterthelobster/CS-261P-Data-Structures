@@ -41,12 +41,10 @@ public class SkipList implements Tree{
         prev[numOfLevels - 1] = temp;
 
         for(int i = numOfLevels - 1; i >= 0; --i){
-
             while(temp != tail && temp.next.size() > i && key > temp.next.get(i).key){
                 temp = temp.next.get(i);
             }
             prev[i] = temp;
-
             if(temp.key == key && (!toBottom || i == 0)){
                 return temp.next.get(i);
             }
