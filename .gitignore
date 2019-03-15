@@ -23,8 +23,6 @@
 hs_err_pid*
 .idea/
 out/
-*.csv
 cs261p_project1.iml
-*.xlsx
 .DS_Store
 project2/project2.iml
