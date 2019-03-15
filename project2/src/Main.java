@@ -1,8 +1,7 @@
 import binary_trees.*;
 import binary_trees.nodes.Node;
-import tests.*;
+import tests.TestCase7;
 
-import java.util.HashSet;
 import java.util.Random;
 
 public class Main {
@@ -24,6 +23,17 @@ public class Main {
 //        new TestCase0_3().bulkTests();
 //        new TestCase4().bulkTests();
 //        new TestCase5_6().bulkTests();
+        new TestCase7().bulkTests();
+    }
+
+    static void insert(AbstractBinaryTree tree, int key, int diff){
+        tree.insert(key);
+        tree.insert(-key);
+        if(diff == 0) return;
+        insert(tree, key + diff, diff/2);
+        insert(tree, -(key + diff), diff/2);
+        insert(tree, key - diff, diff/2);
+        insert(tree, -(key - diff), diff/2);
     }
 
     static void testTreap(){

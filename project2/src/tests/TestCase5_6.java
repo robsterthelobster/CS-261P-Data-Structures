@@ -2,7 +2,8 @@ package tests;
 
 import binary_trees.TreeType;
 
-
+// 5 - Extreme Left
+// 6 - Extreme Right
 public class TestCase5_6 extends TestCase{
     private int[] insertions = {
             1000,

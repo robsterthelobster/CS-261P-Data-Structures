@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+// 4 - Random Operations
 public class TestCase4 extends TestCase{
 
     private int[] insertions = {
